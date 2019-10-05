@@ -39,7 +39,11 @@ Scientific Experiment Reproducibility is vital for the advancement of discipline
 
 \maketitle
 
-As the development of Big Data and Artificial Intelligence, computational scientific experiments encompass more disciplines but are much more complex than before. Training a useful AI model not only takes a long time but consumes huge memory and requires advanced computational device like GPU.
+As the development of Big Data and Artificial Intelligence, computational scientific experiments encompass more disciplines but are much more complex than before. Training a useful AI model not only takes a long time but consumes huge memory and requires advanced computational device like GPU. Also, traditional simulation experiment like finite element analysis can be done on HPC cluster using more advanced parallel algorithms. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchain, specific workflow, expensive and compututational resources which put new challenge on experiment reproducibility.
+
+To solve these issue, there are three kind of approaches: Tools, Methodology and Platform. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment result. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Bad-maintainability originates from domain specific scientific software since their developers are not full-time software engineers. Experiment result storage requires the research to configure the database backend and the visualization needs some web technology. Still, the gain is more than the effort if more researchers use these tools to manage their experiment.
+Methodology, or best practice in reproducibility \cite{QashaCW16} is hard to follow as they tend to be ideal and are not instrumentalized or of standard convention.  
+For platforms we have Code Ocean or other commercial cloud systems\cite{perkel2018data}, which can tackle the reproducibility problem. The problem with such platform is that the free tier is mean and researchers probabilily are not willing to pay for much computational resource. Still, researchers can download the contents and run the replication locally and it is better than no code and no dataset are provided.
 
 \chapterinitial{The introduction} should provide background information (including relevant references) and should indicate the purpose of the manuscript. Cite relevant work by others, including research outside your company. Place your work in perspective by referring to other research papers. Inclusion of statements at the end of the introduction regarding the organization of the manuscript can be helpful to the reader.
 
@@ -209,7 +213,7 @@ line, in square brackets, inside the punctuation. Multiple references are
 each numbered with separate brackets. When citing a section in a book, 
 please give the relevant page numbers. In text, refer simply to the 
 reference number. Do not use ``Ref.'' or ``reference'' except at the 
-beginning of a sentence: ``Reference \cite{CC1} shows $\ldots$ .'' Please do not use 
+beginning of a sentence: ``Reference  shows $\ldots$ .'' Please do not use 
 automatic endnotes in \emph{Word}, rather, type the reference list at the end of the 
 paper using the ``References'' style.
 
