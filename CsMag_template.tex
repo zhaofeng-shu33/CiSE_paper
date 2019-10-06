@@ -24,13 +24,13 @@ numberstyle=\tiny\color{mygray}
 
 \begin{document}
 
-\sptitle{Department: Head}
+\sptitle{Department: Electronic Engineering}
 \editor{Editor: Name, xxxx@email}
 
 \title{Reproducing Scientific Experiment with Cloud DevOps}
 
 \author{Feng Zhao}
-\affil{First Affiliation}
+\affil{PhD student of Tsinghua University}
 
 \author{S. B. Author, Jr.}
 \affil{Second Affiliation}
@@ -48,9 +48,11 @@ Scientific Experiment Reproducibility is vital for the advancement of discipline
 
 \chapterinitial{The introduction} As the development of Big Data and Artificial Intelligence, computational scientific experiments encompass more disciplines but are much more complex than before. Training a useful AI model not only takes a long time but consumes huge memory and requires advanced computational device like GPU. Also, traditional simulation experiment like finite element analysis can be done on HPC cluster using more advanced parallel algorithms. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchain, specific workflow, expensive and compututational resources which put new challenge on experiment reproducibility.
 
-To solve these issue, there are three kind of approaches: Tools, Methodology and Platform. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment result. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Bad-maintainability originates from domain specific scientific software since their developers are not full-time software engineers. Experiment result storage requires the research to configure the database backend and the visualization needs some web technology. Also, most of these tools are not programming language neutral, which means researchers cannot use them in other programming languages. Still, the gain is more than the effort if more researchers use these tools to manage their experiment.
-Methodology, or best practice in reproducibility \cite{QashaCW16} is hard to follow as they tend to be ideal and are not instrumentalized or of standard convention.  
-For platforms we have Code Ocean or other commercial cloud systems\cite{perkel2018data}, which can tackle the reproducibility problem. The problem with such platform is that the free tier is mean and researchers probabilily are not willing to pay for much computational resource. Still, researchers can download the contents and run the replication locally and it is better than no code and no dataset are provided.
+To solve these issue, there are three kind of approaches: Tools, Platform and Methodology. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment result. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Bad-maintainability originates from domain specific scientific software since their developers are not full-time software engineers. Experiment result storage requires the research to configure the database backend and the visualization needs some web technology. Also, most of these tools are not programming language neutral, which means researchers cannot use them in other programming languages. Still, the gain is more than the effort if more researchers use these tools to manage their experiment.
+
+For platform solution, traditionally containerization is used. In recent years, it has been shown that cloud computing is suitable to be used for sceintific research purpose \cite{Howe12}. However, configuration on cloud environment from scratch is difficult for unexperienced researches and it is better to use specific cloud service for research purpose. For example, we have Code Ocean or other commercial cloud systems \cite{perkel2018data}, which can tackle the reproducibility problem. The problem with such platform is that the free tier is mean and researchers probabilily are not willing to pay for much computational resource. Still, researchers can download the contents and run the replication locally and it is better than no code and no dataset are provided.
+
+Methodology, or best practice in reproducibility usually discuss the general principals \cite{stodden2014best} or combines tools and platforms to explore the best practice \cite{QashaCW16}. Generally speaking, methodology is hard to follow as they tend to be ideal and the researchers may not be familiar with or have the ability to setup the toolchain used.  
 
 Both the above three aspects have pros and cons for experiment reproducibility. Some researches seek more elegant solutions from software engineering community and give a try using Docker container for experiment reproducibility \cite{Boettiger15}.
 Boettiger also mensioned the DevOps philosophy and acknowledged its limitations.
@@ -130,7 +132,7 @@ cross-platform; multiple programming language support; various deployment choice
 
 We call a DevOps infrastructure cross-platform if it supports Windows, MacOS and Linux (usually Ubuntu) Operating Systems. For useful open source project, it is important to be run on different platforms. However, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers are not specialist on software engineering and have not machines of other Operating Systems or spare time to make their code run on different platforms. Nowadays, things are different. DevOps provides easy configuration for different environments and researchers are encouraged to test their code on them without learning too much new knowledge and spending too much time. We believe it is beneficial if newly developed algorithms and experiments can be run on more platforms. 
 
-Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but encourage the researchers to have a try.
+Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
 
 Another difference is that some DevOps platform provides some shortcut to configure the environment. For example, on Travis users can have Ubuntu 16.04 \texttt{Python 3.6} environment by simple requires it in the following way:
 \begin{lstlisting}
