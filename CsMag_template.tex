@@ -3,7 +3,14 @@
 \usepackage[colorlinks,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
 
 \usepackage{upmath}
-
+\usepackage{color}
+\usepackage{listings}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\lstset{
+numbers=left,
+numbersep=5pt,
+numberstyle=\tiny\color{mygray}
+}
 \jvol{XX}
 \jnum{XX}
 \paper{8}
@@ -20,7 +27,7 @@
 \sptitle{Department: Head}
 \editor{Editor: Name, xxxx@email}
 
-\title{Reproducing Scientific Experiment with DevOps}
+\title{Reproducing Scientific Experiment with Cloud DevOps}
 
 \author{Feng Zhao}
 \affil{First Affiliation}
@@ -45,10 +52,25 @@ To solve these issue, there are three kind of approaches: Tools, Methodology and
 Methodology, or best practice in reproducibility \cite{QashaCW16} is hard to follow as they tend to be ideal and are not instrumentalized or of standard convention.  
 For platforms we have Code Ocean or other commercial cloud systems\cite{perkel2018data}, which can tackle the reproducibility problem. The problem with such platform is that the free tier is mean and researchers probabilily are not willing to pay for much computational resource. Still, researchers can download the contents and run the replication locally and it is better than no code and no dataset are provided.
 
-Both the above three aspects have pros and cons for experiment reproducibility. In this article, we will introduce DevOps from the platform perspective and incorporate the tools and methodology aspect for better experiment reproducibility. Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its another name ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. There are many free DevOps service for open source project which greatly powers individual developers and open source community. Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster. 
-There are some ongoing research which borrows the ideas of DevOps to develop domain specific infrastructure \cite{philips2019devops} or conduct sophisticated experiments \cite{chwalisz2019walker}. In this article, we will first review the basic concept or DevOps and how it is related with experiment reproducibility. Then combined with concrete examples, we introduce several approaches which can be used within DevOps platform.
+Both the above three aspects have pros and cons for experiment reproducibility. Some researches seek more elegant solutions from software engineering community and give a try using Docker container for experiment reproducibility \cite{Boettiger15}.
+Boettiger also mensioned the DevOps philosophy and acknowledged its limitations.
+There are some ongoing research which also borrows the ideas of DevOps to develop domain specific infrastructure \cite{philips2019devops} or conduct sophisticated experiments \cite{chwalisz2019walker}. These previous research are valuable but they are limited to specific domain or tools and do not solve some critical problems:
+\begin{enumerate}
+\item The time, efforts and money researchers need to pay for such approach
+\item High availability of the service used
+\end{enumerate}
+
+To be more specific, scientific researchers are not software engineering and many of them are not familiar with containerization techonology. Either they have to spend much time and efforts to learn or pay money to use some user friendly 
+cloud service (e.g. Code Ocean). Both are not satisfied for individual researchers. Also, newly developed platform such \texttt{Devops@mech} \cite{philips2019devops} or old services like Everest \cite{VOLKOV2017112} or VCR \cite{GavishD12} are hard to maintain since these services are provided by some laboratory and their users are very limited.
+
+In this article, we will explore the solution from platform point of view. Our approach is not limitted to a specific DevOps cloud service provider. Instead, we focus on the methodology and how to incorporate different tools within the model of DevOps for better experiment reproducibility. 
+Also we will use concrete examples from domain of graph computing, machine learning  and deep learning to illustrate how to use DevOps to help researchers be more productive and help others easier to follow their research. All too often, helping others actually helps yourself.
 
 \section{Infrastructure}
+ Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its another name ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
+DevOps service (server) can be self-hosted or centrally hosted. Since DevOps server is quite complex and self-hosted solution is not suitable for sharing results with others. Besides, self-hosted computing agent (client) can be used if public provided agent is not suitable to reproduce the experiment. Therefore, in this article, we only consider cloud hosted DevOps solution for experiment reproducibility.
+
+There are many free DevOps service for open source project which greatly powers individual developers and open source community. Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster.
 DevOps or its equivalent term CICD consists of two parts: environment configuration and pipeline description.
 For the environment configuration part, users just need to select from predefined combination of the following items:
 \begin{enumerate}
@@ -59,7 +81,7 @@ For the environment configuration part, users just need to select from predefine
 \item public cloud service or local runner
 \end{enumerate}
 
-It should be noticed that not all DevOps infrastructure supports every combination of the above. For example, many platforms do not support connecting the local runner to the cloud or only allows limited. Below is the table to compare DevOps providers which researchers can use freely to a certain extent.
+It should be noticed that not all DevOps infrastructure supports every combination of the above. For example, many platforms do not support connecting the local runner to the cloud or only support certain environment combination. Below is the table to compare DevOps providers which researchers can use freely to a certain extent.
 
 \begin{table}
 \caption{Comparison of Cloud DevOps provider (until 2019)}
@@ -74,7 +96,7 @@ Open Source Project Privilege\\
 AppVeyor& Windows \& Linux support & unlimited public projects; 1 concurrent job with unlimitted time; 5 self-hosted jobs
  \\
  \hline
- Azure pipelines & cross-platform & 1 hosted job with 1800 minutes; 2GB build artifacts storage; 1 self-hosted CICD
+ Azure pipelines & cross-platform, Windows \& Linux docker support, predefined task & 10 hosted job with unlimited time; unlimited self-hosted CICD
  \\
  \hline
   Bitbucket& & 
@@ -96,86 +118,36 @@ Semaphore &
 \\
 \hline
 Travis& 
-& 
+cross-platform; multiple programming language support; various deployment choice
+& 2 concurrent jobs; unlimitted minutes
 \\
 \hline
-\multicolumn{3}{@{}p{17.5pc}@{}}{Vertical lines are optional in tables. Statements that serve as captions for 
-the entire table do not need footnote letters. }\\
-\multicolumn{3}{@{}p{17.5pc}@{}}{$^{\mathrm{a}}$Gaussian units are the same as cg emu for magnetostatics; Mx 
-$=$ maxwell, G $=$ gauss, Oe $=$ oersted; Wb $=$ weber, V $=$ volt, s $=$ 
-second, T $=$ tesla, m $=$ meter, A $=$ ampere, J $=$ joule, kg $=$ 
-kilogram, H $=$ henry.}
 \end{tabular*}
 \label{tab1}
 \end{table}
 
-All CS Magazine authors must obtain clearance from IEEE Computer Society before submitting the final manuscript. The ``\href{https://apps.na.collabserv.com/wikis/home?lang=en-us#!/wiki/W18e544042a85_4b63_915a_1d1ed2cf8338/page/Publication\%20clearance}{Publication Clearance}'' wiki provides details about the procedure. Computer Society employees must use the \href{https://mc.manuscriptcentral.com/cs-ieee}{ScholarOne  Manuscripts Clearance} System to obtain publication approval.
+We call a DevOps infrastructure cross-platform if it supports Windows, MacOS and Linux (usually Ubuntu) Operating Systems. For useful open source project, it is important to be run on different platforms. However, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers are not specialist on software engineering and have not machines of other Operating Systems or spare time to make their code run on different platforms. Nowadays, things are different. DevOps provides easy configuration for different environments and researchers are encouraged to test their code on them without learning too much new knowledge and spending too much time. We believe it is beneficial if newly developed algorithms and experiments can be run on more platforms. 
+
+Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent.
+
+Another difference is that some DevOps platform provides some shortcut to configure the environment. For example, on Travis users can have Ubuntu 16.04 \texttt{Python 3.6} environment by simple requires it in the following way:
+\begin{lstlisting}
+os: linux
+dist: xenial
+language: python
+python: 3.7
+\end{lstlisting}
+Under such environment, \texttt{python} command is actually 3.6 from the official release.
+Such shortcut makes install dependency step much easier as we do not need to install the interpreter and configure the environment variable manually.
 
 
 
-\section{Deeping Learning Considerations}
-Sections following the introduction should present your results and findings. The body of the paper should be approximately 6,000 words. The manuscript should evolve so that each sentence, equation, figure, and table flow smoothly and logically from whatever precedes it. Relevant work by others, as well as relevant products from other companies, should be adequately and accurately cited. Sufficient support should be provided (or cited) for the assertions made and conclusions drawn.
-
-Headings may be numbered or unnumbered (``1 Introduction'' and ``1.2 Numbered level 2 head''), with no ending punctuation. As demonstrated in this document, the initial paragraph after a headingis not indented.
-
-\section{JOURNAL STYLE}
-
-Use American English when writing your paper. The serial comma should be used (``a, b, and c'' not ``a, b and c''). In American English, periods and commas are within quotation marks, like ``this period.'' Other punctuation is ``outside''! The use of technical jargon, slang, and vague or informal English should be avoided. Generic technical terms should instead be used.
-
-\subsection{Acronyms and abbreviations}
-
-All acronyms should be defined at first mention in the abstract and in the main text. Define in figures, tables, and footnotes only if not defined in the discussion of the figure/table. Acronyms consist of capital letters (except where salted with lowercase), but the terms they represent need not be given initial caps unless a proper name is involved (``central processing unit'' [CPU] but ``Fourier transform'' [FT]). Use of ``e.g.'' and ``i.e.'' okay, but refrain from using ``etc.'' It is preferable to use these abbreviations only in parentheses (e.g., like this).
-
-Abbreviate units of time (s, min, hr, day, mo, yr) only in virgule constructions (10~$\umu$g/hr) and in artwork; otherwise, spell out, e.g., 10 days, 3 months, 25 minutes. Units of measure (Kb, MB, kWh, etc.) should always be abbreviated when used with a numeral. If used alone, spell out (``16 MB of RAM'' but ``these values are measured in micrometers'').
-
-\subsection{Numbers}
-
-Spell out numerals that have no unit of measure or time (one, two, $\ldots$ ten), but always use numerals with units of time and measure. Some examples are as follows: 11 through 999; 1,000; 10,000; twentieth century; twofold, tenfold, 20-fold; 2 times; 0.2 cm; $p = .001$; 25\%; 10\% to 25\%.
-
-\section{MATH AND EQUATIONS}
-
-Scalar {\it variables} and {\it physical constants} should be italicized, and a bold (non-italics) font should be used for {\bf vectors} and {\bf matrices}. Do not italicize subscripts unless they are variables.
-
-Equations should be either display (with a number in parentheses) or inline.   
-
-
-Display equations should be flush left and numbered consecutively, with equation numbers in parentheses and flush right.
-
-Be sure the symbols in your equation have been defined before the equation appears or immediately following. Please refer to ``Equation (1),'' not ``Eq. (1)'' or ``equation (1).''
-
-Punctuate display equations when they are part of the sentence preceding it, as in
-\begin{equation}
-A=\pi r^2.
-\end{equation}
-In addition, if the text following the equation flows logically as a part of the display equation, 
-\begin{equation}
-A=\pi r^2,
-\end{equation}
-use ending punctuation (comma) after the display equation.
-
-\section{LISTS}
-
-Avoid using lists. Instead, use full sentences and flowing paragraphs. If you absolutely must use a list, use them rarely and keep them short:
-\begin{itemize}
-\item {\it Style for bulleted lists}---This is the style that should be used for bulleted lists.
-	
-\item {\it Punctuation in lists}---Each item in the list should end with a period, regardless of whether full sentences are used.
-\end{itemize}
-
-\section{GRAPHICAL ABSTRACTS}
-
-This journal accepts graphical abstracts, and they must be peer reviewed, which means the graphical abstract must be submitted with the full paper. graphical abstracts and their specifications. Please read the additional information provided by \href{http://www.ieee.org/publications_standards/publications/graphical_abstract.pdf}{\underline{IEEE about graphical abstracts}}.
 
 
 \begin{figure}
 \centerline{\includegraphics[width=18.5pc]{workflow.pdf}}
 \caption{CICD pipeline illustration. The steps within blue boxes are specific stages for scientific experiments. }
 \end{figure}
-
-\begin{figure*}
-\centerline{\includegraphics[width=26pc]{fig1.png}}
-\caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
-\end{figure*}
 
 
 \section{FIGURES AND TABLES}
