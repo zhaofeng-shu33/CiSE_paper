@@ -72,20 +72,9 @@ Also we will use concrete examples from domain of graph computing, machine learn
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its another name ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
 DevOps service (server) can be self-hosted or centrally hosted. DevOps server is quite complex and self-hosted solution is not suitable for sharing results with others. Besides, self-hosted computing agent (client) can be used if public provided agent is not suitable to reproduce the experiment. In this article, we only consider cloud hosted DevOps solution for experiment reproducibility.
 
-There are some similarities between cloud DevOps and Everest infrastructure \cite{GavishD12}. Both allows dynamic provision of computing resources from public cloud service provider and support computing resources attached by users. The computation can be trigger by user click the button via web interface. But DevOps cloud service is superior than Everest not only because more flexible configuration and high availability but also because the former is easier to use. DevOps cloud service has complete documentation, FAQ, community support and most importantly developer first philosophy while self-made platform lacks.
+There are some similarities between cloud DevOps and Everest infrastructure \cite{GavishD12} . Both of cloud DevOps and Everest allow dynamic provision of computing resources from public cloud service provider and support computing resources attached by users. The computation can be trigger by user click the button via web interface. But DevOps cloud service is superior than Everest not only because more flexible configuration and high availability but also because the former is easier to use. DevOps cloud service has complete documentation, FAQ, community support and most importantly developer first philosophy while self-made platform lacks.  From the workflow management point of view, cloud DevOps is similar to Pegasus system \cite{Pegasus}. While the latter is more suitable for large scale distributed computing management, cloud DevOps is scalable and covers the need from small experiment to large scale experiment as well.
 
-There are many free DevOps service for open source project which greatly powers individual developers and open source community. 
-DevOps or its equivalent term CICD consists of two parts: environment configuration and pipeline description.
-For the environment configuration part, users just need to select from predefined combination of the following items:
-\begin{enumerate}
-\item normal operating system or virtualized image
-\item single OS or cross-platform
-\item splitting different phases or put everything in one place
-\item build artifact or have deployment stage
-\item public cloud service or local runner
-\end{enumerate}
-
-It should be noticed that not all DevOps infrastructure supports every combination of the above. For example, many platforms do not support connecting the local runner to the cloud or only support certain environment combination. Below is the table to compare DevOps providers which researchers can use freely to a certain extent.
+There are many freely available cloud DevOps service for open source project which greatly powers individual developers and open source community. Table \ref{tab1} gives some famous providers, with the list of their features and the privileges if the researchers make their source code open.
 
 \begin{table}
 \caption{Comparison of Cloud DevOps provider (until 2019)}
@@ -130,24 +119,38 @@ cross-platform; multiple programming language support; various deployment choice
 \label{tab1}
 \end{table}
 
-We call a DevOps infrastructure cross-platform if it supports Windows, MacOS and Linux (usually Ubuntu) Operating Systems. For useful open source project, it is important to be run on different platforms. However, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers are not specialist on software engineering and have not machines of other Operating Systems or spare time to make their code run on different platforms. Nowadays, things are different. DevOps provides easy configuration for different environments and researchers are encouraged to test their code on them without learning too much new knowledge and spending too much time. We believe it is beneficial if newly developed algorithms and experiments can be run on more platforms. 
+We call a DevOps infrastructure cross-platform if it supports Windows, MacOS and Linux (usually Ubuntu) Operating Systems.
+Cross-platform is an important topic in software engineering. For scientific community, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers are not specialist on software engineering and have not machines of other Operating Systems or spare time to make their code run on different platforms. Nowadays, things are different. DevOps provides easy configuration for different environments and researchers are encouraged to test their code on them without learning too much new knowledge and spending too much time. We believe it is beneficial if newly developed algorithms and experiments can be run on more platforms. 
 
-Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
+DevOps or its equivalent term CICD consists of two parts: environment specification and pipeline description. Both of them are descripted in a configuration file with \texttt{YAML} format. This is adopted by all cloud DevOps provider though the content schema differs a little. Below we give a short introduction of the two aspects of Cloud DevOps configuration:
+\subsection{Choosing Environment}
+For the environment configuration part, users just need to select from predefined combination of the following items:
+\begin{enumerate}
+\item normal operating system or virtualized image
+\item splitting different phases or put everything in one place
+\item public cloud service or local runner
+\item programming language and version
+\end{enumerate}
 
-Another difference is that some DevOps platform provides some shortcut to configure the environment. For example, on Travis users can have Ubuntu 16.04 \texttt{Python 3.6} environment by simple requires it in the following way:
+For example, on Travis users can have Ubuntu 16.04 \texttt{Python 3.6} environment by simple requires it in the following way:
 \begin{lstlisting}
 os: linux
 dist: xenial
 language: python
 python: 3.7
 \end{lstlisting}
-Under such environment, \texttt{python} command is actually 3.6 from the official release.
-Such shortcut makes install dependency step much easier as we do not need to install the interpreter and configure the environment variable manually.
 
+In this configuration, we use normal OS provided by cloud service. Under such environment, \texttt{python} command is actually 3.6 from the official release.
+Such shortcut makes install dependency in later workflow management much easier as we do not need to install the interpreter and configure the environment variable manually.
 
+It should be noticed that not all DevOps infrastructure supports every combination of the above. For example, many platforms do not support connecting the local runner to the cloud or only support certain environment combination. Details about environmenet configuration can be obtained from the official documentation of the provider.
 
+Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
 
+Though we can use the cloud computing resources for unlimited time, the parallel ability is restricted and special computing device (like GPU) or infracture (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without lossing the computing ability of lab servers. The system diagram shows the interaction between the local client and the cloud DevOps server.
 
+%\item build artifact or have deployment stage
+%\item build artifact or have deployment stage
 \begin{figure}
 \centerline{\includegraphics[width=18.5pc]{workflow.pdf}}
 \caption{CICD pipeline illustration. The steps within blue boxes are specific stages for scientific experiments. }
