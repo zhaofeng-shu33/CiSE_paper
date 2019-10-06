@@ -48,7 +48,9 @@ For platforms we have Code Ocean or other commercial cloud systems\cite{perkel20
 Both the above three aspects have pros and cons for experiment reproducibility. In this article, we will introduce DevOps from the platform perspective and incorporate the tools and methodology aspect for better experiment reproducibility. Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its another name ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. There are many free DevOps service for open source project which greatly powers individual developers and open source community. Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster. 
 There are some ongoing research which borrows the ideas of DevOps to develop domain specific infrastructure \cite{philips2019devops} or conduct sophisticated experiments \cite{chwalisz2019walker}. In this article, we will first review the basic concept or DevOps and how it is related with experiment reproducibility. Then combined with concrete examples, we introduce several approaches which can be used within DevOps platform.
 
-\section{Different Types}
+\section{Infrastructure}
+DevOps or its equivalent term CICD consists of two parts: environment configuration and pipeline description.
+For the environment configuration part, users just need to select from predefined combination of the following items:
 \begin{enumerate}
 \item normal operating system or virtualized image
 \item single OS or cross-platform
@@ -56,6 +58,57 @@ There are some ongoing research which borrows the ideas of DevOps to develop dom
 \item build artifact or have deployment stage
 \item public cloud service or local runner
 \end{enumerate}
+
+It should be noticed that not all DevOps infrastructure supports every combination of the above. For example, many platforms do not support connecting the local runner to the cloud or only allows limited. Below is the table to compare DevOps providers which researchers can use freely to a certain extent.
+
+\begin{table}
+\caption{Comparison of Cloud DevOps provider (until 2019)}
+\label{table}
+\small
+\begin{tabular*}{17.5pc}{@{}|p{39pt}|p{73pt}<{\raggedright}|p{60pt}<{\raggedright}|@{}}
+\hline
+Name& 
+Features& 
+Open Source Project Privilege\\
+\hline
+AppVeyor& Windows \& Linux support & unlimited public projects; 1 concurrent job with unlimitted time; 5 self-hosted jobs
+ \\
+ \hline
+ Azure pipelines & cross-platform & 1 hosted job with 1800 minutes; 2GB build artifacts storage; 1 self-hosted CICD
+ \\
+ \hline
+  Bitbucket& & 
+ \\
+ \hline
+   CircleCI& & 
+ \\
+ \hline
+GitLab CICD& 
+& 
+\\
+\hline
+GitHub Actions& 
+& 
+\\
+\hline
+Semaphore &
+&
+\\
+\hline
+Travis& 
+& 
+\\
+\hline
+\multicolumn{3}{@{}p{17.5pc}@{}}{Vertical lines are optional in tables. Statements that serve as captions for 
+the entire table do not need footnote letters. }\\
+\multicolumn{3}{@{}p{17.5pc}@{}}{$^{\mathrm{a}}$Gaussian units are the same as cg emu for magnetostatics; Mx 
+$=$ maxwell, G $=$ gauss, Oe $=$ oersted; Wb $=$ weber, V $=$ volt, s $=$ 
+second, T $=$ tesla, m $=$ meter, A $=$ ampere, J $=$ joule, kg $=$ 
+kilogram, H $=$ henry.}
+\end{tabular*}
+\label{tab1}
+\end{table}
+
 All CS Magazine authors must obtain clearance from IEEE Computer Society before submitting the final manuscript. The ``\href{https://apps.na.collabserv.com/wikis/home?lang=en-us#!/wiki/W18e544042a85_4b63_915a_1d1ed2cf8338/page/Publication\%20clearance}{Publication Clearance}'' wiki provides details about the procedure. Computer Society employees must use the \href{https://mc.manuscriptcentral.com/cs-ieee}{ScholarOne  Manuscripts Clearance} System to obtain publication approval.
 
 
@@ -124,71 +177,6 @@ This journal accepts graphical abstracts, and they must be peer reviewed, which 
 \caption{Note that ``Figure'' is spelled out. There is a period after the figure number, followed by one space. It is good practice to briefly explain the significance of the figure in the caption. (Used, with permission, from [4].)}
 \end{figure*}
 
-\begin{table}
-\caption{Units for magnetic properties.}
-\label{table}
-\small
-\begin{tabular*}{17.5pc}{@{}|p{29pt}|p{63pt}<{\raggedright}|p{80pt}<{\raggedright}|@{}}
-\hline
-Symbol& 
-Quantity& 
-Conversion from Gaussian and  CGS EMU to SI$^{\mathrm{a}}$ \\
-\hline
-$\Phi $& 
-Magnetic flux& 
-1 Mx $\to  10^{-8}$ Wb $= 10^{-8}$ V $\cdot$ s \\
-$B$& 
-Magnetic flux density,   magnetic induction& 
-1 G $\to  10^{-4}$ T $= 10^{-4}$ Wb/m$^{2}$ \\
-$H$& 
-Magnetic field strength& 
-1 Oe $\to  10^{-3}/(4\pi )$ A/m \\
-$m$& 
-Magnetic moment& 
-1 erg/G $=$ 1 emu   $\to 10^{-3}$ A $\cdot$ m$^{2} = 10^{-3}$ J/T \\
-$M$& 
-Magnetization& 
-1 erg/(G $\cdot$ cm$^{3}) =$ 1 emu/cm$^{3}$   $\to 10^{-3}$ A/m \\
-4$\pi M$& 
-Magnetization& 
-1 G $\to  10^{-3}/(4\pi )$ A/m \\
-$\sigma $& 
-Specific magnetization& 
-1 erg/(G $\cdot$ g) $=$ 1 emu/g $\to $ 1 A $\cdot$ m$^{2}$/kg \\
-$j$& 
-Magnetic dipole   moment& 
-1 erg/G $=$ 1 emu   $\to 4\pi \times  10^{-10}$ Wb $\cdot$ m \\
-$J$& 
-Magnetic polarization& 
-1 erg/(G $\cdot$ cm$^{3}) =$ 1 emu/cm$^{3}$  $\to 4\pi \times  10^{-4}$ T \\
-$\chi , \kappa $& 
-Susceptibility& 
-1 $\to  4\pi $ \\
-$\chi_{\rho }$& 
-Mass susceptibility& 
-1 cm$^{3}$/g $\to  4\pi \times  10^{-3}$ m$^{3}$/kg \\
-$\mu $& 
-Permeability& 
-1 $\to  4\pi \times  10^{-7}$ H/m   $= 4\pi \times  10^{-7}$ Wb/(A $\cdot$ m) \\
-$\mu_{r}$& 
-Relative permeability& 
-$\mu \to \mu_{r}$ \\
-$w, W$& 
-Energy density& 
-1 erg/cm$^{3} \to  10^{-1}$ J/m$^{3}$ \\
-$N, D$& 
-Demagnetizing factor& 
-1 $\to  1/(4\pi )$ \\
-\hline
-\multicolumn{3}{@{}p{17.5pc}@{}}{Vertical lines are optional in tables. Statements that serve as captions for 
-the entire table do not need footnote letters. }\\
-\multicolumn{3}{@{}p{17.5pc}@{}}{$^{\mathrm{a}}$Gaussian units are the same as cg emu for magnetostatics; Mx 
-$=$ maxwell, G $=$ gauss, Oe $=$ oersted; Wb $=$ weber, V $=$ volt, s $=$ 
-second, T $=$ tesla, m $=$ meter, A $=$ ampere, J $=$ joule, kg $=$ 
-kilogram, H $=$ henry.}
-\end{tabular*}
-\label{tab1}
-\end{table}
 
 \section{FIGURES AND TABLES}
 
