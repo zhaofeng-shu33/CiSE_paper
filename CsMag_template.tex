@@ -122,9 +122,10 @@ cross-platform; multiple programming language support; various deployment choice
 We call a DevOps infrastructure cross-platform if it supports Windows, MacOS and Linux (usually Ubuntu) Operating Systems.
 Cross-platform is an important topic in software engineering. For scientific community, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers are not specialist on software engineering and have not machines of other Operating Systems or spare time to make their code run on different platforms. Nowadays, things are different. DevOps provides easy configuration for different environments and researchers are encouraged to test their code on them without learning too much new knowledge and spending too much time. We believe it is beneficial if newly developed algorithms and experiments can be run on more platforms. 
 
-DevOps or its equivalent term CICD consists of two parts: environment specification and pipeline description. Both of them are descripted in a configuration file with \texttt{YAML} format. This is adopted by all cloud DevOps provider though the content schema differs a little. Below we give a short introduction of the two aspects of Cloud DevOps configuration:
-\subsection{Choosing Environment}
-For the environment configuration part, users just need to select from predefined combination of the following items:
+DevOps or its equivalent term CICD consists of two parts: environment specification and pipeline description. 
+Both of them are descripted in a configuration file with \texttt{YAML} format. This is adopted by all cloud DevOps provider though the content schema differs a little. Below we give a short introduction of the two aspects of Cloud DevOps configuration:
+\subsection{Choosing Environment for Agent}
+For the environment configuration part, users choose the actually running time of their code. Usually, it is predefined combination of the following items:
 \begin{enumerate}
 \item normal operating system or virtualized image
 \item splitting different phases or put everything in one place
@@ -147,16 +148,25 @@ It should be noticed that not all DevOps infrastructure supports every combinati
 
 Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
 
-Though we can use the cloud computing resources for unlimited time, the parallel ability is restricted and special computing device (like GPU) or infracture (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without lossing the computing ability of lab servers. The system diagram shows the interaction between the local client and the cloud DevOps server.
+The system diagram in Fig. \ref{fig:selfhosted} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
+This is a typical use cases when DevOps incoperates the source code version control. The advantage is that each build log has a unique identifier associated with the commit hash of the source. By inspeting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
 
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=18.5pc]{self-hosted.pdf}}
+\caption{}\label{fig:selfhosted}
+\end{figure}
+
+Though we can use the cloud computing resources for unlimited time, the parallel ability is restricted and special computing device (like GPU) or infracture (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without lossing the computing ability of lab servers. 
+\subsection{workflow description}
+In this step, users should determine how to execute their code sequentially. Usually
 %\item build artifact or have deployment stage
 %\item build artifact or have deployment stage
-\begin{figure}
+\begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{workflow.pdf}}
 \caption{CICD pipeline illustration. The steps within blue boxes are specific stages for scientific experiments. }
 \end{figure}
 
-Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster.
+%Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster.
 
 \section{FIGURES AND TABLES}
 
