@@ -149,26 +149,41 @@ It should be noticed that not all DevOps infrastructure supports every combinati
 Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
 
 The system diagram in Fig. \ref{fig:selfhosted} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
-This is a typical use cases when DevOps incoperates the source code version control. The advantage is that each build log has a unique identifier associated with the commit hash of the source. By inspeting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
+This is a typical use cases when DevOps incoperates the source code version control. The advantage is that each log has a unique identifier associated with the commit hash of the source. By inspeting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{self-hosted.pdf}}
-\caption{}\label{fig:selfhosted}
+\caption{Interaction of DevOps server with agent and source code repository}\label{fig:selfhosted}
 \end{figure}
 
 Though we can use the cloud computing resources for unlimited time, the parallel ability is restricted and special computing device (like GPU) or infracture (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without lossing the computing ability of lab servers. 
 \subsection{workflow description}
-In this step, users should determine how to execute their code sequentially. Usually
-%\item build artifact or have deployment stage
-%\item build artifact or have deployment stage
+In this step, users should determine how to execute their code sequentially. The basic workflow can be summarized in Fig.\ref{fig:cicdworkflow}.
+
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{workflow.pdf}}
-\caption{CICD pipeline illustration. The steps within blue boxes are specific stages for scientific experiments. }
+\caption{CICD pipeline illustration. The steps within blue boxes are specific stages for scientific experiments. }\label{fig:cicdworkflow}
 \end{figure}
+%\item build artifact or have deployment stage
+%\item build artifact or have deployment stage
+
+The first few steps are common. We need to capture enough information of the running machine and install necessary software dependencies. Then we build our source code to binary executable and run some test to verify whether it works for simple cases. In software engineering community, DevOps ends with the deployment step. But for scientific computing community, the story just begins after packing your method or algorithm implementation. Therefore, we use blue boxes to emphasis the unique steps for scientific experiment in DevOps infrastructure. After the experiment finishes, the result needs to be collected and further processed and we call this step Report.
+
+For the Info step, it is automatically done by DevOps server. For other steps, shell scripts are used to tell the running machine how to install, build etc. Suppose a researcher writes his experiment code using Python programming language, then he can write his workflow as follows:
+\begin{lstlisting}
+install: 
+  - pip install -r requirements.txt
+script: # run experiment
+  - python main.py
+\end{lstlisting}
+
+In the above workflow description, Build, Test and Deploy steps are omitted. This is common for many researchers, especially when interpreted language is used. This is OK as long as the experiment results are all right. Still, it is better to do some test and do some deployment task. Deployment makes other researchers easier to compare their results with your method without copying your code into their code repository.
 
 %Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster.
+Since the infrastructure of cloud DevOps service is transparent to all users and the mechanisim of it is totally determined by configuration file and specific commit of source code. Other researchers can trust the output logs DevOps as evidence of experiment reproducibility. Rerunning the code is also very easier, just use the same service provider and the code can be run under a different account. We acknowledge that this ease is not appliable to self-hosted agent. For self-hosted agent usually the environment configuration part is not written in a file but determined by which type of agent used. Virtualization is a solution to such a program but compared with building complex virtual image and starting it locally, we encourage the research to run a partial and small scale experiemnt on public DevOps server and run their full experiment on self-hosted server using the same code base. The log files uploaded from self-hosted agent can demonstrate the reprocibility to some extent.
 
-\section{FIGURES AND TABLES}
+\section{Case Studies}
+In the previous section, we briefly overview the common practice in DevOps.
 
 \subsection{In-text callouts for figures and tables}
 
