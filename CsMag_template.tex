@@ -141,12 +141,12 @@ It should be noticed that not all DevOps infrastructure supports every combinati
 
 Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
 
-The system diagram in Fig. \ref{fig:selfhosted} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
+The system diagram in Fig. \ref{fig:principal} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
 This is a typical use cases when DevOps incoperates the source code version control. The advantage is that each log has a unique identifier associated with the commit hash of the source. By inspeting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{principal.pdf}}
-\caption{Interaction of DevOps server with agent and source code repository}\label{fig:selfhosted}
+\caption{Interaction of DevOps server with agent and source code repository}\label{fig:principal}
 \end{figure}
 
 Though we can use the cloud computing resources for unlimited time, the parallel ability is restricted and special computing device (like GPU) or infracture (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without lossing the computing ability of lab servers. 
@@ -207,8 +207,13 @@ This deployment is cross-platform and supports different version of Python\footn
 
 \subsection{HPC}
 Experiment Reproducibility on high perforance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
-Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior work can be combined with the power of DevOps service and strength the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent. Using agent to submit job has extra advantages that the running log are preserved in a continuous way without messing things up. Generally only the second stage in Fig \ref{fig:cicdworkflow}
+Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior work can be combined with the power of DevOps service and strength the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by Fig \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running log are preserved in a continuous way without messing things up. Generally only the second stage in Fig \ref{fig:cicdworkflow}
 is executed in self-hosted agent. Going through the whole pipeline costs extra time but makes the experiment more reliable.
+
+\begin{figure}[!ht]
+\centerline{\includegraphics[width=18.5pc]{self-hosted.pdf}}
+\caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
+\end{figure}
 
 We give a simple experiment which uses OpenMP to parallel the program. The complexity depends on the input data. For two kinds of input data, the detail is shown in Table \ref{tab:time}
 \begin{table}
@@ -233,7 +238,7 @@ Time & 4.3 Minutes & 10.5 Hours \\
 
 The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent. These combination increases the reproducibility of the project.
 
-Special consideration of the data is needed.
+Special consideration of the data is needed. Since fetching data from external web is time-comsuming and wastes bandwidth, we can store the data using cache feature in cloud server. For self-hosted case, storing data is much more obvious but the arbitary path may let the experiment hard to follow. Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to gurantee this. We recommend researchers to verify the checksums of the data to the precomputed ground truth whether the data is downloaded freshly or loaded from cache. By guaranteeing the data integrity can the experiment be more rigious and convincing.
 
 % introduce run the time complexity experiment on the self-hosted server
 
