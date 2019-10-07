@@ -126,7 +126,7 @@ For the environment configuration part, users choose the actually running time o
 \end{enumerate}
 
 For example, on Travis users can have Ubuntu 16.04 \texttt{Python 3.6} environment by simple requires it in the following way:
-\begin{lstlisting}
+\begin{lstlisting}[caption={environment configuration}]
 os: linux
 dist: xenial
 language: python
@@ -162,7 +162,7 @@ In this step, users should determine how to execute their code sequentially. The
 The first few steps are common. We need to capture enough information of the running machine and install necessary software dependencies. Then we build our source code to binary executable and run some test to verify whether it works for simple cases. In software engineering community, DevOps ends with the deployment step. But for scientific computing community, the story just begins after packing your method or algorithm implementation. Therefore, we use blue boxes to emphasis the unique steps for scientific experiment in DevOps infrastructure. After the experiment finishes, the result needs to be collected and further processed and we call this step Report.
 
 For the Info step, it is automatically done by DevOps server. For other steps, shell scripts are used to tell the running machine how to install, build etc. Suppose a researcher writes his experiment code using Python programming language, then he can write his workflow as follows:
-\begin{lstlisting}
+\begin{lstlisting}[caption={workflow description}, label={lst:wd}]
 install: 
   - pip install -r requirements.txt
 script: # run experiment
@@ -182,7 +182,7 @@ Experiment Reproducibility is argued in ML community \cite{kegl2018ramp}. Reprod
 
 The workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
 Algorithm library build phase and experiment executable phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to the development of other softwares. 
-The reusable library can be deployed to public available package repository. For example, in Python programming language, it is \url{pypi.org}. The following table shows the deployment result to pypi made by an independent researcher using DevOps:
+The reusable library can be deployed to public available package repository. For example, in Python programming language, it is \url{pypi.org}. Table \ref{tab:deploy} shows the deployment result to pypi made by an independent researcher using DevOps. 
 \begin{table}
 \centering
 \begin{tabular}{|c|c|c|c|}
@@ -191,11 +191,17 @@ OS & py3.6 & py3.7  & provider badge\\
 \hline
 Windows & √ & √  & \includegraphics[width=2cm]{./appveyor.pdf}\\ 
 \hline
+MacOS & √ & √ & \includegraphics[width=2cm]{./travis.pdf}\\ 
+\hline
+ManyLinux & √ & √ & same as above \\
+\hline
 \end{tabular}
+\caption{cross-platform deployment matrix of pspartition algorithm used in scientific experiment}\label{tab:deploy}
 \end{table}
-% introduce splitting alg repo and exp repo
 
-% algorithm build show a table with 6 versions and also build documentation
+This deployment is cross-platform and supports different version of Python\footnote{For Python extension package, we need to package binary executable.} For the second stage, we can just install the deployed package and run the actual experiment. The specification can be the same with Listing \ref{lst:wd}. In the requirements file, put your algorithm package name and others in it. In our practice (info-detection-experiment), we use sacred tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
+
+% introduce splitting alg repo and exp repo
 
 % introduce run the time complexity experiment on the self-hosted server
 
