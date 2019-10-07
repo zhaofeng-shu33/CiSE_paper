@@ -74,6 +74,7 @@ DevOps service (server) can be self-hosted or centrally hosted. DevOps server is
 
 There are some similarities between cloud DevOps and Everest infrastructure \cite{GavishD12} . Both of cloud DevOps and Everest allow dynamic provision of computing resources from public cloud service provider and support computing resources attached by users. The computation can be trigger by user click the button via web interface. But DevOps cloud service is superior than Everest not only because more flexible configuration and high availability but also because the former is easier to use. DevOps cloud service has complete documentation, FAQ, community support and most importantly developer first philosophy while self-made platform lacks.  From the workflow management point of view, cloud DevOps is similar to Pegasus system \cite{Pegasus}. While the latter is more suitable for large scale distributed computing management, cloud DevOps is scalable and covers the need from small experiment to large scale experiment as well.
 
+% notebook approach 
 There are many freely available cloud DevOps service for open source project which greatly powers individual developers and open source community. Table \ref{tab1} gives some famous providers, with the list of their features and the privileges if the researchers make their source code open.
 
 \begin{table}
@@ -144,7 +145,7 @@ The system diagram in Fig. \ref{fig:selfhosted} shows the interaction between th
 This is a typical use cases when DevOps incoperates the source code version control. The advantage is that each log has a unique identifier associated with the commit hash of the source. By inspeting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
 
 \begin{figure}[!ht]
-\centerline{\includegraphics[width=18.5pc]{self-hosted.pdf}}
+\centerline{\includegraphics[width=18.5pc]{principal.pdf}}
 \caption{Interaction of DevOps server with agent and source code repository}\label{fig:selfhosted}
 \end{figure}
 
@@ -201,11 +202,40 @@ ManyLinux & √ & √ & same as above \\
 
 This deployment is cross-platform and supports different version of Python\footnote{For Python extension package, we need to package binary executable.} For the second stage, we can just install the deployed package and run the actual experiment. The specification can be the same with Listing \ref{lst:wd}. In the requirements file, put your algorithm package name and others in it. In our practice (info-detection-experiment), we use sacred tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
 
-% introduce splitting alg repo and exp repo
-
-% introduce run the time complexity experiment on the self-hosted server
 
 % another experiment, focues on data fetching and model training and saving
+
+\subsection{HPC}
+Experiment Reproducibility on high perforance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
+Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior work can be combined with the power of DevOps service and strength the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent. Using agent to submit job has extra advantages that the running log are preserved in a continuous way without messing things up. Generally only the second stage in Fig \ref{fig:cicdworkflow}
+is executed in self-hosted agent. Going through the whole pipeline costs extra time but makes the experiment more reliable.
+
+We give a simple experiment which uses OpenMP to parallel the program. The complexity depends on the input data. For two kinds of input data, the detail is shown in Table \ref{tab:time}
+\begin{table}
+\centering
+\begin{tabular}{|c|p{1.5cm}|p{1.5cm}|}
+\hline
+Data Size & 527MB & 2.0GB\\
+\hline
+Data Source & Git LFS & HPC Storage Node \\
+\hline
+Platform & Travis Public Agent & HPC Computing Node \\
+\hline
+CPU Core & 2 & 32  \\ 
+\hline
+Peak Memory  & 3.1GB  & 17.9GB\\ 
+\hline
+Time & 4.3 Minutes & 10.5 Hours \\
+\hline
+\end{tabular}
+\caption{Program running time and its requirements on public server and self-hosted agent}\label{tab:time}
+\end{table}
+
+The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent. These combination increases the reproducibility of the project.
+
+Special consideration of the data is needed.
+
+% introduce run the time complexity experiment on the self-hosted server
 
 % graph computation experiment, focues on parallel power and HPC cluster usage
 
