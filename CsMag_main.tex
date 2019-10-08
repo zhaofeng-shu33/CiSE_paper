@@ -16,7 +16,7 @@ numberstyle=\tiny\color{mygray}
 \jnum{XX}
 \paper{8}
 \jmonth{May/June}
-\jname{IT Professional}
+\jname{CiSE}
 \pubyear{2019}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -36,13 +36,13 @@ numberstyle=\tiny\color{mygray}
 \author{Shaolun Huang}
 \affil{Tsinghua University}
 
-\author{Lin Zhang}
+\author{\textbf{L}in Zhang}
 \affil{Tsinghua University}
 
 \markboth{Department Head}{Paper title}
 
 \begin{abstract}
-Scientific Experiment Reproducibility is vital for the advancement of disciplines based on previous work. Many researchers focus on complex methodology and self-invented tools which have difficulty in practical usage. In this article, we borrow the DevOps infrastructure from software engineering community and shows how DevOps can be used effectively in reproducible experiments for computer science related disciplines. DevOps can be enabled using freely accessible computing machines for medium sized experiment and lab HPC environment for large scale computing, thus powering researchers to share their experiment with others in a more reliable way.
+Scientific Experiment Reproducibility is vital for the advancement of disciplines based on previous work. To achieve this goal, many researchers focus on complex methodology and self-invented tools which have difficulty in practical usage. In this article, we introduce the DevOps infrastructure from software engineering community and shows how DevOps can be used effectively in reproducible experiments for computer science related disciplines. DevOps can be enabled using freely accessible computing machines for medium sized experiment and lab HPC environment for large scale computing, thus powering researchers to share their experiment result with others in a more reliable way.
 \end{abstract}
 
 \maketitle
@@ -176,7 +176,7 @@ In the above workflow description, Build, Test and Deploy steps are omitted. Thi
 %Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster.
 Since the infrastructure of cloud DevOps service is transparent to all users and the mechanism of it is totally determined by configuration file and specific commit of source code. Other researchers can trust the output logs DevOps as evidence of experiment reproducibility. Rerunning the code is also very easier, just use the same service provider and the code can be run under a different account. We acknowledge that this convenience is not applicable to self-hosted agent. For self-hosted agent usually the environment configuration part is not written in a file but determined by which type of agent used. Virtualization is a solution to such a program but compared with building complex virtual image and starting it locally, we encourage the research to run a partial and small scale experiment on public DevOps server and run their full experiment on self-hosted server using the same code base. The log files uploaded from self-hosted agent can demonstrate the reproducibility to some extent.
 
-\section{Case Studies}
+\section{CASE STUDIES}
 In the previous section, we briefly overview the common practice in DevOps and how it can be related with scientific experiment reproducibility. Different domains 
 
 \subsection{Machine Learning}
