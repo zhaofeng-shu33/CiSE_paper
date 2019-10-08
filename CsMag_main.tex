@@ -5,6 +5,7 @@
 \usepackage{upmath}
 \usepackage{color}
 \usepackage{listings}
+\usepackage{amssymb}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \lstset{
 numbers=left,
@@ -46,7 +47,7 @@ Scientific Experiment Reproducibility is vital for the advancement of discipline
 
 \maketitle
 
-\chapterinitial{The introduction} As the development of Big Data and Artificial Intelligence, computational scientific experiments encompass more disciplines but are much more complex than before. Training a useful AI model not only takes a long time but consumes huge memory and requires advanced computational device like GPU. Also, traditional simulation experiment like finite element analysis can be done on HPC cluster using more advanced parallel algorithms. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchain, specific workflow, expensive and computational resources which put new challenge on experiment reproducibility.
+\chapterinitial{THE INTRODUCTION} As the development of Big Data and Artificial Intelligence, computational scientific experiments encompass more disciplines but are much more complex than before. Training a useful AI model not only takes a long time but consumes huge memory and requires advanced computational device like GPU. Also, traditional simulation experiment like finite element analysis can be done on HPC cluster using more advanced parallel algorithms. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchain, specific workflow, expensive and computational resources which put new challenge on experiment reproducibility.
 
 To solve these issue, there are three kind of approaches: Tools, Platform and Methodology. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment result. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Bad-maintainability originates from domain specific scientific software since their developers are not full-time software engineers. Experiment result storage requires the research to configure the database backend and the visualization needs some web technology. Also, most of these tools are not programming language neutral, which means researchers cannot use them in other programming languages. Still, the gain is more than the effort if more researchers use these tools to manage their experiment.
 
@@ -68,14 +69,14 @@ cloud service (e.g. Code Ocean). Both are not satisfied for individual researche
 In this article, we will explore the solution from platform point of view. Our approach is not limited to a specific DevOps cloud service provider. Instead, we focus on the methodology and how to incorporate different tools within the model of DevOps for better experiment reproducibility. 
 Also we will investigate the reproducibility problem in the domain of machine learning and graph computing and illustrate by concrete example how to use DevOps in these domains to help researchers be more productive and help others easier to follow their research. All too often, helping others actually helps yourself.
 
-\section{Infrastructure}
+\section{INFRASTRUCTURE}
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its another name ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
 DevOps service (server) can be self-hosted or centrally hosted. DevOps server is quite complex and self-hosted solution is not suitable for sharing results with others. Besides, self-hosted computing agent (client) can be used if public provided agent is not suitable to reproduce the experiment. In this article, we only consider cloud hosted DevOps solution for experiment reproducibility.
 
 There are some similarities between cloud DevOps and Everest infrastructure \cite{GavishD12} . Both of cloud DevOps and Everest allow dynamic provision of computing resources from public cloud service provider and support computing resources attached by users. The computation can be trigger by user click the button via web interface. But DevOps cloud service is superior than Everest not only because more flexible configuration and high availability but also because the former is easier to use. DevOps cloud service has complete documentation, FAQ, community support and most importantly developer first philosophy while self-made platform lacks.  From the workflow management point of view, cloud DevOps is similar to Pegasus system \cite{Pegasus}. While the latter is more suitable for large scale distributed computing management, cloud DevOps is scalable and covers the need from small experiment to large scale experiment as well.
 
 % notebook approach 
-There are many freely available cloud DevOps service for open source project which greatly powers individual developers and open source community. Table \ref{tab1} gives some famous providers, with the list of their features and the privileges if the researchers make their source code open.
+There are many freely available cloud DevOps service for open source project which greatly powers individual developers and open source community. {\bf Table} \ref{tab1} gives some famous providers, with the list of their features and the privileges if the researchers make their source code open.
 
 \begin{table}
 \caption{Comparison of Cloud DevOps provider (until 2019)}
@@ -120,10 +121,10 @@ Both of them are described in a configuration file with \texttt{YAML} format. Th
 \subsection{Choosing Environment for Agent}
 For the environment configuration part, users choose the actually running time of their code. Usually, it is predefined combination of the following items:
 \begin{enumerate}
-\item normal operating system or virtualized image
-\item splitting different phases or put everything in one place
-\item public cloud service or local runner
-\item programming language and version
+\item normal operating system or virtualized image.
+\item splitting different phases or put everything in one place.
+\item public cloud service or local runner.
+\item programming language and version.
 \end{enumerate}
 
 For example, on Travis users can have Ubuntu 16.04 \texttt{Python 3.6} environment by simple requires it in the following way:
@@ -141,7 +142,7 @@ It should be noticed that not all DevOps infrastructure supports every combinati
 
 Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researches can run their own containers (whether it is Docker based, Singularity based or other virtual machines) in their self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
 
-The system diagram in Fig. \ref{fig:principal} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
+The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
 This is a typical use cases when DevOps incorporates the source code version control. The advantage is that each log has a unique identifier associated with the commit hash of the source. By inspecting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
 
 \begin{figure}[!ht]
@@ -151,7 +152,7 @@ This is a typical use cases when DevOps incorporates the source code version con
 
 Though we can use the cloud computing resources for unlimited time, the parallel ability is restricted and special computing device (like GPU) or infrastructure (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without losing the computing ability of lab servers. 
 \subsection{workflow description}
-In this step, users should determine how to execute their code sequentially. The basic workflow can be summarized in Fig.\ref{fig:cicdworkflow}.
+In this step, users should determine how to execute their code sequentially. The basic workflow can be summarized in \textbf{Figure} \ref{fig:cicdworkflow}.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{workflow.pdf}}
@@ -183,18 +184,18 @@ Experiment Reproducibility is argued in ML community \cite{kegl2018ramp}. Reprod
 
 The workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
 Algorithm library build phase and experiment executable phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to the development of other softwares. 
-The reusable library can be deployed to public available package repository. For example, in Python programming language, it is \url{pypi.org}. Table \ref{tab:deploy} shows the deployment result to pypi made by an independent researcher using DevOps. 
+The reusable library can be deployed to public available package repository. For example, in Python programming language, it is \url{pypi.org}. {\bf Table} \ref{tab:deploy} shows the deployment result to pypi made by an independent researcher using DevOps. 
 \begin{table}
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
 OS & py3.6 & py3.7  & provider badge\\
 \hline
-Windows & √ & √  & \includegraphics[width=2cm]{./appveyor.pdf}\\ 
+Windows & \checkmark & \checkmark  & \includegraphics[width=2cm]{./appveyor.pdf}\\ 
 \hline
-MacOS & √ & √ & \includegraphics[width=2cm]{./travis.pdf}\\ 
+MacOS & \checkmark & \checkmark & \includegraphics[width=2cm]{./travis.pdf}\\ 
 \hline
-ManyLinux & √ & √ & same as above \\
+ManyLinux & \checkmark & \checkmark & same as above \\
 \hline
 \end{tabular}
 \caption{cross-platform deployment matrix of pspartition algorithm used in scientific experiment}\label{tab:deploy}
@@ -207,7 +208,7 @@ This deployment is cross-platform and supports different version of Python\footn
 
 \subsection{HPC}
 Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
-Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior work can be combined with the power of DevOps service and strength the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by Fig \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running log are preserved in a continuous way without messing things up. Generally only the second stage in Fig \ref{fig:cicdworkflow}
+Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior work can be combined with the power of DevOps service and strength the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running log are preserved in a continuous way without messing things up. Generally only the second stage in Figure \ref{fig:cicdworkflow}
 is executed in self-hosted agent. Going through the whole pipeline costs extra time but makes the experiment more reliable.
 
 \begin{figure}[!ht]
@@ -215,12 +216,12 @@ is executed in self-hosted agent. Going through the whole pipeline costs extra t
 \caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
 \end{figure}
 
-We give a simple experiment which uses OpenMP to parallel the program. The complexity depends on the input data. For two kinds of input data, the detail is shown in Table \ref{tab:time}
+We give a simple experiment which uses OpenMP to parallel the program. The complexity depends on the input data. For two kinds of input data, the detail is shown in {\bf Table} \ref{tab:time}
 \begin{table}
 \centering
 \begin{tabular}{|c|p{1.5cm}|p{1.5cm}|}
 \hline
-Data Size & 527MB & 2.0GB\\
+Data Size & 527 MB & 2.0 GB\\
 \hline
 Data Source & Git LFS & HPC Storage Node \\
 \hline
@@ -228,7 +229,7 @@ Platform & Travis Public Agent & HPC Computing Node \\
 \hline
 CPU Core & 2 & 32  \\ 
 \hline
-Peak Memory  & 3.1GB  & 17.9GB\\ 
+Peak Memory  & 3.1 GB  & 17.9 GB\\ 
 \hline
 Time & 4.3 Minutes & 10.5 Hours \\
 \hline
@@ -243,9 +244,6 @@ Special consideration of the data is needed. Since fetching data from external w
 % introduce run the time complexity experiment on the self-hosted server
 
 % graph computation experiment, focues on parallel power and HPC cluster usage
-
-\section{Conclusion}
-
 
 \section{CONCLUSION}
 
