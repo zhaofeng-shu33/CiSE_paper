@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: zhaofengshu33/mini-latex:v1
+      - image: zhaofengshu33/mini-latex:latest
 
     steps:
       - checkout
