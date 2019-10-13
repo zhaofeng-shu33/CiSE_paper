@@ -202,7 +202,8 @@ ManyLinux & \checkmark & \checkmark & same as above \\
 
 This deployment is cross-platform and supports different version of Python\footnote{For Python extension package, we need to package binary executable.} For the second stage, we can just install the deployed package and run the actual experiment. The specification can be the same with Listing \ref{lst:wd}. In the requirements file, put your algorithm package name and others in it. In our practice (info-detection-experiment), we use sacred tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
 
-
+For data science related domain, data needed to be loaded at the begining of the experiment. DevOps service does not provide data storage hosting for such case and external tools should be used. Downloading data is necessary if the experiment is run on cloud DevOps service. Usually the data is large and may not come from commonly used public available dataset. There are many choices to store the data and currently \textrm{kaggle} platform provides fairable free public dataset hosting for individuals.
+For deep learning domain, sometimes it is necessary to save the model parameter, which is also quite large.
 % another experiment, focues on data fetching and model training and saving
 
 \subsection{HPC}

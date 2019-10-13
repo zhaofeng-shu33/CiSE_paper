@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: zhaofengshu33/mini-latex:v1
+
+    steps:
+      - checkout
+
+      - run:
+          name: build
+          command: make
+      - store_artifacts:
+          path: ./build/CsMag_main.pdf
+          destination: CsMag_main.pdf
