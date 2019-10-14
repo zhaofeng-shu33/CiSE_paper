@@ -50,23 +50,25 @@ The reproducibility of scientific experiment is vital for the advancement of dis
 
 To solve these issues, there are three kind of approaches: Tools, Platform and Methodology. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment results. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Indeed, they are made by domain specific scientists, not by experienced full-time software engineers. Experiment result storage requires the researcher to configure the database locally. The visualization is hard to configure and the local data is difficult to share. Furthermore, most of these tools are not programming language neutral, which means researchers cannot use them in other programming languages. Still, something is better than nothing if researchers use these tools to manage their experiment.
 
-For platform solution, traditionally containerization is used. In recent years, it has been shown that cloud computing is suitable to be used for scientific research purpose \cite{Howe12}. However, configuration on cloud environment from scratch is difficult for unexperienced researches and it is better to use specific cloud service for research purpose. For example, we have Code Ocean or other commercial cloud systems \cite{perkel2018data}, which can tackle the reproducibility problem. The problem with such platform is that the free tier is mean and researchers probably are not willing to pay for much computational resource. Still, researchers can download the contents and run the replication locally and it is better than no code and no dataset are provided.
+For platform solution, traditionally containerization is used. In recent years, it has been shown that cloud computing is suitable for scientific research purpose \cite{Howe12}. Configuration on cloud environment from scratch is difficult for unexperienced researches and it is better to use specific cloud service for research purpose. For example, we have Code Ocean or other commercial cloud systems \cite{perkel2018data}, which can tackle the reproducibility problem to some extend. However, their free tier is mean and researchers probably are not willing to pay for more computational resource. Budget limitation is an important factor when it comes to buying cloud computing resources.
 
 Methodology, or best practice in reproducibility usually discuss the general principals \cite{stodden2014best} or combines tools and platforms to explore the best practice \cite{QashaCW16}. Generally speaking, methodology is hard to follow as they tend to be ideal and the researchers may not be familiar with or have the ability to setup the toolchain used.  
 
-Both the above three aspects have pros and cons for experiment reproducibility. Some researches seek more elegant solutions from software engineering community and give a try using Docker container for experiment reproducibility \cite{Boettiger15}.
-Boettiger also mentioned the DevOps philosophy and acknowledged its limitations.
-There have already been research projects which borrow the ideas of DevOps to develop domain specific infrastructure \cite{philips2019devops} or conduct sophisticated experiments \cite{chwalisz2019walker}. These previous research are valuable but they are limited to specific domain or tools and do not solve some critical problems:
-\begin{enumerate}
-\item The time, efforts and money researchers need to pay for such approach
-\item High availability of the service used
-\end{enumerate}
+All the above three aspects have pros and cons for experiment reproducibility. The key is how to combine the three aspects to make the best use of their advantages. This is what DevOps tries to solve. This idea is not newly proposed. Boettiger gives a try using Docker container for experiment reproducibility \cite{Boettiger15}.
+He also mentioned the DevOps philosophy and acknowledged its limitations.
+There are other research projects which borrow the ideas of DevOps to conduct sophisticated experiments \cite{chwalisz2019walker}. These previous research are valuable but they are limited to specific domain and local environment. Since scientific researchers are not software engineers, it's hard for researchers to follow them. 
 
-To be more specific, scientific researchers are not software engineering and many of them are not familiar with containerization technology. Either they have to spend much time and efforts to learn or pay money to use some user friendly 
-cloud service (e.g. Code Ocean). Both are not satisfied for individual researchers. Also, newly developed platform such \texttt{Devops@mech} \cite{philips2019devops} or old services like Everest \cite{VOLKOV2017112} or VCR \cite{GavishD12} are hard to maintain since these services are provided by some laboratory and their users are very limited.
+There are also dedicated system on the cloud, which tries to solve domain specific problem and is related with experiment reproducibility. \texttt{Devops@mech} is developed for a certain institute, which is based on DevOps methodology \cite{philips2019devops}. For public service, we have    RAMP for data science domain \cite{kegl2018ramp} or VCR for computational results indexing purpose\cite{GavishD12}. Though these services are available when corresponding paper is written, they are unavailable now.
+Everest, claimed to simplify the use of clouds for scientific computing, is still available but users are required to attach their own resources before actually using it \cite{VOLKOV2017112}.
+Just like experiment reproducibility tools, these lab-made services suffer from bad maintenance.
 
-In this article, we will explore the solution from platform point of view. Our approach is not limited to a specific DevOps cloud service provider. Instead, we focus on the methodology and how to incorporate different tools within the model of DevOps for better experiment reproducibility. 
-Also we will investigate the reproducibility problem in the domain of machine learning and graph computing and illustrate by concrete example how to use DevOps in these domains to help researchers be more productive and help others easier to follow their research. All too often, helping others actually helps yourself.
+From the above analysis, we see that previous combination of DevOps with scientific experiment has some shortcomings. In this article, we propose Cloud DevOps approach, which uses DevOps from cloud service point of view. It has the following advantages which are not present completely in previous approaches:
+\begin{itemize}
+	\item High availability of the service and healthy maintenance of the infrastructure
+	\item Easier to learn and use and flexible configuration 
+	\item Unlimited Usage and rich computing resource
+\end{itemize}
+ In the following sections, we will given an introduction to cloud DevOps and show the feasibility to incorporate existing reproducibility tools in cloud DevOps. To be more concrete, we then investigate the reproducibility problem in the domain of machine learning and graph computing and  given some suggestions by example snippets for the usage of cloud DevOps. We believe cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
 
 \section{INFRASTRUCTURE}
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its another name ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
@@ -111,6 +113,8 @@ cross-platform; multiple programming language support; various deployment choice
 \end{tabular*}
 \label{tab1}
 \end{table}
+
+Our approach is not limited to a specific DevOps cloud service provider. Instead, we focus on the methodology, which is applicable to almost any service provider.
 
 We call a DevOps infrastructure cross-platform if it supports Windows, MacOS and Linux (usually Ubuntu) Operating Systems.
 Cross-platform is an important topic in software engineering. For scientific community, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers are not specialist on software engineering and have not machines of other Operating Systems or spare time to make their code run on different platforms. Nowadays, things are different. DevOps provides easy configuration for different environments and researchers are encouraged to test their code on them without learning too much new knowledge and spending too much time. Researchers can first choose the most similar environment on the cloud to their local development environment and make the cloud version works. We believe it is beneficial if newly developed algorithms and experiments can be run on more platforms. 
