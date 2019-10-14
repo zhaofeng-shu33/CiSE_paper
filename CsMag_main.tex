@@ -83,34 +83,21 @@ There are many freely available cloud DevOps service for open source project whi
 \caption{Comparison of Cloud DevOps provider (until 2019)}
 \label{table}
 \small
-\begin{tabular*}{17.5pc}{@{}|p{39pt}|p{73pt}<{\raggedright}|p{60pt}<{\raggedright}|@{}}
+\begin{tabular}{|m{0.8cm}|@{\hspace{0.3em}}>{\centering}m{0.8cm}@{\hspace{0.8em}}|>{\centering}m{0.8cm}|>{\centering}m{0.8cm}|>{\centering}m{0.8cm}|m{0.8cm}|}
 \hline
-Name& 
-Features& 
-Open Source Project Privilege\\
+& 
+{\scriptsize AppVeyor }& 
+ {\scriptsize Azure pipelines} & {\scriptsize CircleCI } &  {\scriptsize GitLab CICD} & {\scriptsize Travis}\\
 \hline
-AppVeyor& Windows \& Linux support & unlimited public projects; 1 concurrent job with unlimited time; 5 self-hosted jobs
- \\
+ {\scriptsize Platform} & {\scriptsize Windows, Linux} & All & All & Linux docker & All \\
+\hline
+ {\scriptsize Parallel} & 1 & 10 & 4 & 8 &  5 \\
  \hline
- Azure pipelines & cross-platform, Windows \& Linux docker support, predefined task & 10 hosted job with unlimited time; unlimited self-hosted CICD
- \\
+ {\scriptsize  Selfhost } & Y & Y & N & Y & N \\
  \hline
-   CircleCI & cross-platform, Linux docker support & 4 Linux containers with no time limit  \\
+ {\scriptsize Artifact} & N & Y & Y & Y & N \\
  \hline
-GitLab CICD& Linux docker support & free to use
-
-\\
-\hline
-GitHub Actions (beta) & cross-platform,Linux docker support, programming language support
-& unlimited projects and running time
-\\
-\hline
-Travis& 
-cross-platform; multiple programming language support; various deployment choice
-& 2 concurrent jobs; unlimited minutes
-\\
-\hline
-\end{tabular*}
+\end{tabular}
 \label{tab1}
 \end{table}
 
