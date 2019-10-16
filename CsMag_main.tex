@@ -191,26 +191,29 @@ MacOS & \checkmark & \checkmark & \includegraphics[width=2cm]{./travis.pdf}\\
 ManyLinux & \checkmark & \checkmark & same as above \\
 \hline
 \end{tabular}
-\caption{cross-platform deployment matrix of pspartition algorithm used in scientific experiment}\label{tab:deploy}
+\caption{cross-platform deployment matrix of compiled algorithm used in scientific experiment}\label{tab:deploy}
 \end{table}
 
-This deployment is cross-platform and supports different version of Python\footnote{For Python extension package, we need to package binary executable.} For the second stage, we can just install the deployed package and run the actual experiment. The specification can be the same with Listing \ref{lst:wd}. In the requirements file, put your algorithm package name and others in it. In our practice (info-detection-experiment), we use sacred tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
+This deployment is cross-platform and supports different version of Python\footnote{For Python extension package, we need to package binary executable.} For the second stage, we can just install the deployed package and run the actual experiment. The specification can be the same with Listing \ref{lst:wd}. In \texttt{requirements.txt} file, put your algorithm package name and other dependency in it. In one of our practice, we use \texttt{sacred} tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
 
-For data science related domain, data needed to be loaded at the beginning of the experiment. DevOps service does not provide data storage hosting for such case and external tools should be used. Downloading data is necessary if the experiment is run on cloud DevOps service. Usually the data is large and may not come from commonly used public available dataset. There are many choices to store the data and currently \textrm{kaggle} platform provides some kinds of free public dataset hosting for individuals.
-For deep learning domain, sometimes it is necessary to save the model parameter, which is also quite large.
+For data science related domain, data needed to be loaded at the beginning of the experiment. DevOps service does not provide data storage hosting for such case and external tools should be used. Downloading data is necessary if the experiment is run on cloud DevOps service. Dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
+% Currently, we do not find free hosting of models for individuals.
+% recommendation includes Git Large file storage or purpose cloud storage from Google or AWS
+% Warning: making model public downloadable will induce costs for each download.
+
 % another experiment, focues on data fetching and model training and saving
 
-\subsection{HPC}
+\subsection{High Performance Computing}
 Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
-Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior work can be combined with the power of DevOps service and strength the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running log are preserved in a continuous way without messing things up. Generally only the second stage in Figure \ref{fig:cicdworkflow}
-is executed in self-hosted agent. Going through the whole pipeline costs extra time but makes the experiment more reliable.
+Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior works can be combined with the power of Cloud DevOps service and strengthen the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since own method can be compiled and prepared beforehand, generally only the second stage in Figure \ref{fig:cicdworkflow}
+is executed in self-hosted agent. Still, going through the whole pipeline costs extra time but makes the experiment more reliable.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{self-hosted.pdf}}
 \caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
 \end{figure}
 
-We give a simple experiment which uses OpenMP to parallel the program. The complexity depends on the input data. For two kinds of input data, the detail is shown in {\bf Table} \ref{tab:time}.
+We make a simple experiment which uses OpenMP to parallel the program. The complexity depends on the scale of input data. For two kinds of input data, the detail is shown in {\bf Table} \ref{tab:time}.
 \begin{table}
 \centering
 \begin{tabular}{|c|p{1.5cm}|p{1.5cm}|}
@@ -228,12 +231,13 @@ Peak Memory  & 3.1 GB  & 17.9 GB\\
 Time & 4.3 Minutes & 10.5 Hours \\
 \hline
 \end{tabular}
-\caption{Program running time and its requirements on public server and self-hosted agent}\label{tab:time}
+\caption{Sample OpenMP program running time and its requirements on public server and self-hosted agent}\label{tab:time}
 \end{table}
 
-The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent. These combination increases the reproducibility of the project.
+The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent. For public available Cloud DevOps server, we download the data from git large file storage server and for lab HPC server, we save the data on local storage node. The latter experiment cannot be run on cloud DevOps server since their virtual machine is not equipped with enough resources.
+These combination increases the reproducibility of the project.
 
-Special consideration of the data is needed. Since fetching data from external web is time-consuming and wastes bandwidth, we can store the data using cache feature in cloud server. For self-hosted case, storing data is much more obvious but the arbitrary path may let the experiment hard to follow. Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data to the precomputed ground truth whether the data is downloaded freshly or loaded from cache. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
+For self-hosted case, storing data is much more obvious but using the absolute path may let the experiment hard to reproduce by others. Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data to the precomputed ground truth whether the data is downloaded freshly or loaded from cache. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
 
 % introduce run the time complexity experiment on the self-hosted server
 
