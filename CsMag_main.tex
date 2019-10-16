@@ -116,7 +116,7 @@ Usually the configuration file is with \texttt{YAML} format. Different cloud Dev
 \subsection{Choosing Environment for Agent}
 Users first choose the actually running environment of their code. Usually, it is the combination of the following items:
 \begin{enumerate}
-\item normal operating system or virtualized image.
+\item virtual machine or docker container.
 \item public cloud service or local runner.
 \item programming language and version.
 \end{enumerate}
@@ -129,10 +129,10 @@ language: python
 python: 3.6
 \end{lstlisting}
 
-In this configuration, we use normal OS provided by cloud service. We also fix the version of certain software. 
-Such shortcut makes install dependency in later workflow management much easier as we do not need to install \texttt{Python} or other pre-installed softwares manually.
+In this configuration, we use the Linux virtual machine provided by cloud service. We also fix the version of certain software. 
+Such shortcut makes installing dependency in later workflow management much easier as we do not need to install \texttt{Python} or other pre-installed softwares manually.
 
-Besides normal operating system environment, many DevOps infrastructures support Docker containers or the researchers can run their own virtual machine in self-hosted agent. Virtualization is better than normal OS for experiment reproducibility but it is also more complex to configure. We do not elaborate such workflow but we encourage the researchers to have a try.
+Besides virtual machine, many DevOps infrastructures support Docker containers as well, which provides more flexible way to configure the environment. Generally speaking, virtualization is better than bare metal OS for experiment reproducibility \cite{Howe12}. Cloud DevOps can do a good job by providing out-of-the-box virtual machine.
 
 The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
 This is a typical use cases when DevOps incorporates the source code version control. The advantage is that each log has a unique identifier associated with the commit hash of the source. By inspecting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
