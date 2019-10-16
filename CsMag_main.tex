@@ -73,9 +73,9 @@ From the above analysis, we see that previous combination of DevOps with scienti
 \section{INFRASTRUCTURE}
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its two core components ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
 DevOps service (server) can be self-hosted or centrally hosted. In either way, it requires some other computing machines (called agents or runners) to actually run the jobs submitted. Usually the jobs are not submitted by hand but triggered by an update of code repository. 
-DevOps server is quite complex and self-hosted solution is not suitable for sharing results with others. Besides, self-hosted computing agent (client) can be used if public provided agent is not suitable to reproduce the experiment. In this article, we only consider cloud hosted CICD service and refer them Cloud DevOps for short.
+DevOps server is quite complex and self-hosted solution is not suitable for sharing results with others. Therefore it is prefered to use public cloud DevOps service, which provides some free time-unlimitted computing power (cloud agent). Besides, self-hosted computing agent (client) can be used if public provided agent is not suitable to reproduce the experiment due to computing resource limitation. In this article, we only consider cloud hosted DevOps service and call them Cloud DevOps for short.
 
-There are some similarities between Cloud DevOps and Everest infrastructure \cite{GavishD12} . Both of Cloud DevOps and Everest allow dynamic provision of computing resources from public cloud service provider and support computing resources attached by users. The computation can be trigger by user click the button via web interface.
+There are some similarities between Cloud DevOps and Everest infrastructure \cite{GavishD12} . Both of Cloud DevOps and Everest allow dynamic provision of computing resources from public cloud service provider and support computing agents attached by users. The computation can be trigger by user when the button is clicked via web interface.
 However, Everest suffers from problems mentioned in the last Section. From the workflow management point of view, Cloud DevOps is similar to Pegasus system \cite{Pegasus}. While the latter is more suitable for large scale distributed computing management, Cloud DevOps is scalable and covers the need from small experiment to large scale experiment as well.
 
 % notebook approach 
@@ -103,18 +103,21 @@ There are many freely available Cloud DevOps service for open source project whi
 \label{tab1}
 \end{table}
 
-In Table \ref{tab1}, "Platform" summarizes what kinds of operating system (OS) are supported; "Parallel" row represents the maximum number of allowed paralleling jobs; "Selfhost" row means whether the service provider supports connection of self-hosted device; "Artifact" row means whether it supports preserving of job artifacts. Our approach is not limited to a specific DevOps cloud service provider. Instead, we focus on the methodology, which is applicable to almost any service provider.
+In Table \ref{tab1}, "Platform" row summarizes what kinds of operating system (OS) are supported; "Parallel" row represents the maximum number of allowed parallel jobs; "Selfhost" row means whether the service provider supports connection of self-hosted agent; "Artifact" row means whether it supports preservation of job artifacts. Our approach is not limited to a specific DevOps cloud service provider. Instead, we focus on the methodology, which is applicable to almost any service provider.
 
-We call a DevOps infrastructure cross-platform (\texttt{Platform = All} in Table  \ref{tab1}) if it supports Windows, MacOS and Linux (usually Ubuntu) OS.
-Cross-platform is an important topic in software engineering. For scientific community, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers may not have machines of other Operating Systems or have time to make their code run on different platforms. A recent study found a flaw of Python script in an article published on Nature which produces different results on different OS \cite{bhandari2019characterization}. This incident can be avoided if researchers test their experiment code on different OS. Cloud DevOps provides easy configuration for different environments and researchers are encouraged to test their code on different OS without learning too much new knowledge and spending too much time. To the least extent, researchers can choose the most similar environment on the cloud to their local development environment and make the experiment run on cloud. To the largest extend, it is beneficial if newly developed algorithms and experiments can be run on more platforms.
+We call a DevOps infrastructure cross-platform (\texttt{Platform = All} in Table  \ref{tab1}) if it supports Windows, MacOS and Linux 
+%(usually Ubuntu) 
+OS.
+Cross-platform is an important topic in software engineering. For scientific community, most research experiments can only be reproduced on specific version of one Operating System. This is OK since researchers may not have machines of other Operating Systems or have time to make their code run on different platforms. A recent study found a flaw of Python script in an article published on Nature which produces different results on different OS \cite{bhandari2019characterization}. This incident can be avoided if researchers test their experiment code on different OS. Cloud DevOps provides easy configuration for different environments and researchers are encouraged to test their code on different OS without learning too much new knowledge and spending too much time. To the least extent, researchers can choose the most similar environment on the cloud to their local development environment and make the experiment able to run on cloud. To the largest extend, it is beneficial if newly developed algorithms and experiments can be run on more platforms.
 
-Parallelism is a valuable capability on Cloud DevOps. In Software Engineering Community, it is often used to run different tests in parallel. Artifacts are build product which are used to be deployed.
+Parallelism is a valuable capability on Cloud DevOps. In software engineering community, it is often used to run different tests in parallel.
+Artifacts are build product which are ready to be deployed to other places.
 Some DevOps service provider give the opportunity to save artifacts permanently. For scientific experiment scenario, independent experiments can be run in parallel jobs and the results (like figures) can be saved automatically for each job and viewed by public.
 
 Cloud DevOps uses configuration file to determine the running environment and workflow instructions. 
-Usually the configuration file is with \texttt{YAML} format. Different Cloud DevOps providers have different schema, although they do the same thing. Below we give a short introduction of how to configure Cloud DevOps to run the experiment.
+Usually the configuration file is written in \texttt{YAML} format. Different Cloud DevOps providers have different schema, but they all do the same thing. Below we give a short introduction of how to configure Cloud DevOps to run the experiment.
 \subsection{Choosing Environment for Agent}
-Users first choose the actually running environment of their code. Usually, it is the combination of the following items:
+Users first choose the actual running environment of their code. Usually, it is the combination of the following items:
 \begin{enumerate}
 \item virtual machine or docker container.
 \item public cloud service or local runner.
