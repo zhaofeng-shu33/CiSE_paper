@@ -134,16 +134,16 @@ Such shortcut makes installing dependency in later workflow management much easi
 
 Besides virtual machine, many DevOps infrastructures support Docker containers as well, which provides more flexible way to configure the environment. Generally speaking, virtualization is better than bare metal OS for experiment reproducibility \cite{Howe12}. Cloud DevOps can do a good job by providing out-of-the-box virtual machine.
 
-The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction between the agent, the cloud DevOps server and the source code repository. 
-This is a typical use cases when DevOps incorporates the source code version control. The advantage is that each log has a unique identifier associated with the commit hash of the source. By inspecting the public available log and the source code at specific commit stage, others can reproduce the same result using public available build machine or on local workstations.
+Usually Cloud DevOps is used in cooperation with a source code repository. The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction between the computing agent, the cloud DevOps server and the code repository. When the source code is updated, Cloud DevOps server fetches the latest code automatically and trigger the computing agent to run the build. The agent upload the log file and artifacts to the server after it finishes task. The artifacts can be figures of experiment result which will be included in the paper. 
+The code repository is used for version control and each running of the agent produces a log file. The source code version and the log file are 1-to-1 correspondent. Inspecting the public available log and its corresponding source code help others to reproduce the same result using public available build machine or on local workstations.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{principal.pdf}}
-\caption{Interaction of DevOps server with agent and source code repository}\label{fig:principal}
+\caption{Interaction of DevOps server with agent and code repository}\label{fig:principal}
 \end{figure}
 
-Though we can use the cloud computing resources for unlimited time, the parallel ability is restricted and special computing device (like GPU) or infrastructure (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without losing the computing ability of lab servers. 
-\subsection{workflow description}
+Though we can use the cloud computing resources for unlimited time, the algorithm level parallel ability is restricted and special computing device (like GPU) or infrastructure (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without losing the computing ability of lab servers. 
+\subsection{Describe Workflow for Agent}
 In this step, users should determine how to execute their code sequentially. The basic workflow can be summarized in \textbf{Figure} \ref{fig:cicdworkflow}.
 
 \begin{figure}[!ht]
@@ -153,9 +153,9 @@ In this step, users should determine how to execute their code sequentially. The
 %\item build artifact or have deployment stage
 %\item build artifact or have deployment stage
 
-The first few steps are common. We need to capture enough information of the running machine and install necessary software dependencies. Then we build our source code to binary executable and run some test to verify whether it works for simple cases. In software engineering community, DevOps ends with the deployment step. But for scientific computing community, the story just begins after packing your method or algorithm implementation. Therefore, we use blue boxes to emphasis the unique steps for scientific experiment in DevOps infrastructure. After the experiment finishes, the result needs to be collected and further processed and we call this step Report.
+The first few steps are common. We need to capture enough information of the running machine (\texttt{Info}) and install necessary software dependencies (\texttt{Install}). Then we build our source code to binary executable (\texttt{Build}) and run some test to verify whether it works for simple cases (\texttt{Test}). In software engineering community, DevOps ends with the deployment step. But for scientific computing community, the story just begins after packing your method or algorithm implementation. Therefore, we use blue boxes to emphasis the unique steps for scientific experiment in Cloud DevOps infrastructure. After the test, we begin to run the experiment (\texttt{Run}) and finally the result needs to be collected and further processed to produce the artifacts (\texttt{Report}).
 
-For the Info step, it is automatically done by DevOps server. For other steps, shell scripts are used to tell the running machine how to install, build etc. Suppose a researcher writes his experiment code using Python programming language, then he can write his workflow as follows:
+For \texttt{Info} step, it is automatically done by DevOps server. For other steps, shell scripts are used to tell the running machine how to install, build and run the code. Suppose a researcher writes his experiment code using Python programming language, then he can write his workflow as follows:
 \begin{lstlisting}[caption={workflow description}, label={lst:wd}]
 install: 
   - pip install -r requirements.txt
