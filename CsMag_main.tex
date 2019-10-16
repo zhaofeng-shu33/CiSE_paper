@@ -68,18 +68,18 @@ From the above analysis, we see that previous combination of DevOps with scienti
 	\item Easier to learn and use and flexible configuration 
 	\item Unlimited Usage and rich computing resource
 \end{itemize}
- In the following sections, we will given an introduction to cloud DevOps and show the feasibility to incorporate existing reproducibility tools in cloud DevOps. To be more concrete, we then investigate the reproducibility problem in the domain of machine learning and graph computing and  given some suggestions by example snippets for the usage of cloud DevOps. We believe cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
+ In the following sections, we will given an introduction to Cloud DevOps and show the feasibility to incorporate existing reproducibility tools in Cloud DevOps. To be more concrete, we then investigate the reproducibility problem in the domain of machine learning and graph computing and  given some suggestions by example snippets for the usage of Cloud DevOps. We believe Cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
 
 \section{INFRASTRUCTURE}
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its two core components ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
 DevOps service (server) can be self-hosted or centrally hosted. In either way, it requires some other computing machines (called agents or runners) to actually run the jobs submitted. Usually the jobs are not submitted by hand but triggered by an update of code repository. 
-DevOps server is quite complex and self-hosted solution is not suitable for sharing results with others. Besides, self-hosted computing agent (client) can be used if public provided agent is not suitable to reproduce the experiment. In this article, we only consider cloud hosted CICD service and refer them cloud DevOps for short.
+DevOps server is quite complex and self-hosted solution is not suitable for sharing results with others. Besides, self-hosted computing agent (client) can be used if public provided agent is not suitable to reproduce the experiment. In this article, we only consider cloud hosted CICD service and refer them Cloud DevOps for short.
 
-There are some similarities between cloud DevOps and Everest infrastructure \cite{GavishD12} . Both of cloud DevOps and Everest allow dynamic provision of computing resources from public cloud service provider and support computing resources attached by users. The computation can be trigger by user click the button via web interface.
-However, Everest suffers from problems mentioned in the last Section. From the workflow management point of view, cloud DevOps is similar to Pegasus system \cite{Pegasus}. While the latter is more suitable for large scale distributed computing management, cloud DevOps is scalable and covers the need from small experiment to large scale experiment as well.
+There are some similarities between Cloud DevOps and Everest infrastructure \cite{GavishD12} . Both of Cloud DevOps and Everest allow dynamic provision of computing resources from public cloud service provider and support computing resources attached by users. The computation can be trigger by user click the button via web interface.
+However, Everest suffers from problems mentioned in the last Section. From the workflow management point of view, Cloud DevOps is similar to Pegasus system \cite{Pegasus}. While the latter is more suitable for large scale distributed computing management, Cloud DevOps is scalable and covers the need from small experiment to large scale experiment as well.
 
 % notebook approach 
-There are many freely available cloud DevOps service for open source project which greatly powers individual developers and open source community. {\bf Table} \ref{tab1} gives some famous providers with the list of their features.
+There are many freely available Cloud DevOps service for open source project which greatly powers individual developers and open source community. {\bf Table} \ref{tab1} gives some famous providers with the list of their features.
 
 \begin{table}
 \caption{Comparison of Cloud DevOps provider (until 2019)}
@@ -112,7 +112,7 @@ Parallelism is a valuable capability on Cloud DevOps. In Software Engineering Co
 Some DevOps service provider give the opportunity to save artifacts permanently. For scientific experiment scenario, independent experiments can be run in parallel jobs and the results (like figures) can be saved automatically for each job and viewed by public.
 
 Cloud DevOps uses configuration file to determine the running environment and workflow instructions. 
-Usually the configuration file is with \texttt{YAML} format. Different cloud DevOps providers have different schema, although they do the same thing. Below we give a short introduction of how to configure Cloud DevOps to run the experiment.
+Usually the configuration file is with \texttt{YAML} format. Different Cloud DevOps providers have different schema, although they do the same thing. Below we give a short introduction of how to configure Cloud DevOps to run the experiment.
 \subsection{Choosing Environment for Agent}
 Users first choose the actually running environment of their code. Usually, it is the combination of the following items:
 \begin{enumerate}
@@ -134,7 +134,7 @@ Such shortcut makes installing dependency in later workflow management much easi
 
 Besides virtual machine, many DevOps infrastructures support Docker containers as well, which provides more flexible way to configure the environment. Generally speaking, virtualization is better than bare metal OS for experiment reproducibility \cite{Howe12}. Cloud DevOps can do a good job by providing out-of-the-box virtual machine.
 
-Usually Cloud DevOps is used in cooperation with a source code repository. The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction between the computing agent, the cloud DevOps server and the code repository. When the source code is updated, Cloud DevOps server fetches the latest code automatically and trigger the computing agent to run the build. The agent upload the log file and artifacts to the server after it finishes task. The artifacts can be figures of experiment result which will be included in the paper. 
+Usually Cloud DevOps is used in cooperation with a source code repository. The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction between the computing agent, the Cloud DevOps server and the code repository. When the source code is updated, Cloud DevOps server fetches the latest code automatically and trigger the computing agent to run the build. The agent upload the log file and artifacts to the server after it finishes task. The artifacts can be figures of experiment result which will be included in the paper. 
 The code repository is used for version control and each running of the agent produces a log file. The source code version and the log file are 1-to-1 correspondent. Inspecting the public available log and its corresponding source code help others to reproduce the same result using public available build machine or on local workstations.
 
 \begin{figure}[!ht]
@@ -142,7 +142,7 @@ The code repository is used for version control and each running of the agent pr
 \caption{Interaction of DevOps server with agent and code repository}\label{fig:principal}
 \end{figure}
 
-Though we can use the cloud computing resources for unlimited time, the algorithm level parallel ability is restricted and special computing device (like GPU) or infrastructure (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of cloud DevOps without losing the computing ability of lab servers. 
+Though we can use the cloud computing resources for unlimited time, the algorithm level parallel ability is restricted and special computing device (like GPU) or infrastructure (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many Cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of Cloud DevOps without losing the computing ability of lab servers. 
 \subsection{Describe Workflow for Agent}
 In this step, users should determine how to execute their code sequentially. The basic workflow can be summarized in \textbf{Figure} \ref{fig:cicdworkflow}.
 
@@ -166,7 +166,7 @@ script: # run experiment
 In the above workflow description, \texttt{Build}, \texttt{Test} and \texttt{Deploy} steps are omitted. This is common for many researchers, often they do not test and deploy their code. That's OK as long as the experiment results are all right. Still, it is better to do some test and do some deployment task. Deployment makes other researchers easier to compare their results with your method without copying your code to their own repository and add input and output wrapper manually.
 
 %Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster.
-Since the infrastructure of cloud DevOps service is transparent to all users and the mechanism of it is totally determined by configuration file and specific version of source code. Other researchers can trust the output logs and artifacts of DevOps as evidence of experiment reproducibility. Rerunning the code is also very easier: just use the same service provider and the code can be run under a different account. We acknowledge that this convenience is not applicable to self-hosted agent. For self-hosted agent usually the environment configuration part is not written in a file but determined by which type of agent used. This made reproducibility not obvious. Still, the logs and artifacts are available to be examined by public since they are uploaded to public cloud DevOps server from private lab server.
+Since the infrastructure of Cloud DevOps service is transparent to all users and the mechanism of it is totally determined by configuration file and specific version of source code. Other researchers can trust the output logs and artifacts of DevOps as evidence of experiment reproducibility. Rerunning the code is also very easier: just use the same service provider and the code can be run under a different account. We acknowledge that this convenience is not applicable to self-hosted agent. For self-hosted agent usually the environment configuration part is not written in a file but determined by which type of agent used. This made reproducibility not obvious. Still, the logs and artifacts are available to be examined by public since they are uploaded to public Cloud DevOps server from private lab server.
 We encourage the researchers to run a partial and small scale experiment on public DevOps server and run their full experiment on self-hosted server using the same code base. 
 
 \section{CASE STUDIES}
@@ -196,7 +196,7 @@ ManyLinux & \checkmark & \checkmark & same as above \\
 
 This deployment is cross-platform and supports different version of Python\footnote{For Python extension package, we need to package binary executable.} For the second stage, we can just install the deployed package and run the actual experiment. The specification can be the same with Listing \ref{lst:wd}. In \texttt{requirements.txt} file, put your algorithm package name and other dependency in it. In one of our practice, we use \texttt{sacred} tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
 
-For data science related domain, data needed to be loaded at the beginning of the experiment. DevOps service does not provide data storage hosting for such case and external tools should be used. Downloading data is necessary if the experiment is run on cloud DevOps service. Dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
+For data science related domain, data needed to be loaded at the beginning of the experiment. DevOps service does not provide data storage hosting for such case and external tools should be used. Downloading data is necessary if the experiment is run on Cloud DevOps service. Dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
 % Currently, we do not find free hosting of models for individuals.
 % recommendation includes Git Large file storage or purpose cloud storage from Google or AWS
 % Warning: making model public downloadable will induce costs for each download.
@@ -222,7 +222,7 @@ Data Size & 527 MB & 2.0 GB\\
 \hline
 Data Source & Git LFS & HPC Storage Node \\
 \hline
-Platform & Travis Public Agent & HPC Computing Node \\
+Platform & Travis Public Agent & HPC Computing Node  \\
 \hline
 CPU Core & 2 & 32  \\ 
 \hline
@@ -234,7 +234,7 @@ Time & 4.3 Minutes & 10.5 Hours \\
 \caption{Sample OpenMP program running time and its requirements on public server and self-hosted agent}\label{tab:time}
 \end{table}
 
-The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent. For public available Cloud DevOps server, we download the data from git large file storage server and for lab HPC server, we save the data on local storage node. The latter experiment cannot be run on cloud DevOps server since their virtual machine is not equipped with enough resources.
+The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent. For public available Cloud DevOps server, we download the data from git large file storage server and for lab HPC server, we save the data on local storage node. The latter experiment cannot be run on Cloud DevOps server since their virtual machine is not equipped with enough resources. But we connect the HPC head node with GitLab and the experiment is triggered by updating source code to GitLab.
 These combination increases the reproducibility of the project.
 
 For self-hosted case, storing data is much more obvious but using the absolute path may let the experiment hard to reproduce by others. Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data to the precomputed ground truth whether the data is downloaded freshly or loaded from cache. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
@@ -244,7 +244,7 @@ For self-hosted case, storing data is much more obvious but using the absolute p
 % graph computation experiment, focues on parallel power and HPC cluster usage
 
 \section{CONCLUSION}
-DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. DevOps can improve the experiment reproducibility if medium-sized experiments can be run directly on public DevOps service and complete logs are available for large-scale experiments. Currently, it is unknown the accessibility of DevOps by scientific community beyond scientific software development. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
+Cloud DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate Cloud DevOps into their daily research. Researchers can run their medium-sized or partial version of experiments directly on public DevOps service and complete their full experiment using self-hosted agent. Currently, it is unknown the accessibility of Cloud DevOps by scientific community beyond scientific software development. Since Cloud DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
 
 \section{ACKNOWLEDGMENT}
 
