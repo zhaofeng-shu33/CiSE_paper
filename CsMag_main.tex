@@ -179,7 +179,7 @@ In the previous section, we briefly overview the common practice in DevOps and h
 Experiment Reproducibility is argued in ML community from different perspectives \cite{kegl2018ramp}. We notice that a platform called Sotabench, similar to DevOps service but dedicated to Deep Learning Reproducibility, has been online in recent month. Currently it only runs the prediction steps for limited public dataset. For more general domains of machine learning, it is preferable to use more simple and flexible approach to resolve the reproducibility problem. In this subsection, we consider some aspects of reproducibility using examples in the domain of machine learning. 
 
 For Machine Learning domain, the workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
-algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to DevOps used in software community.  The code can be tested against different environment and 
+algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to how DevOps is used in software community.  The code can be tested against different environment and 
 the reusable library can be deployed to public available package repository. For example, in Python programming language, the platform of deployment is \url{pypi.org}. {\bf Table} \ref{tab:deploy} shows the deployment of a Python extension to pypi using DevOps. The deployment result shows that this library supports two versions of Python in a cross-platform way.
 \begin{table}
 \centering
@@ -199,7 +199,7 @@ ManyLinux & \checkmark & \checkmark & same as above \\
 
 For the experiment running stage, we can just install the deployed package and run the actual experiment. The workflow specification for this stage can be the same with Listing \ref{lst:wd}. In \texttt{requirements.txt} file, we put the package name of our algorithm and other dependencies. In one of our practice, we use \texttt{sacred} tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
 
-For data science related domain, data needed to be loaded at the beginning of the experiment. DevOps service does not provide data storage hosting for such case and external tools should be used. Downloading data is necessary if the experiment is run on Cloud DevOps service. Dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
+For data science related domain, data needed to be loaded at the beginning of the experiment. DevOps service does not provide data storage hosting and external platform should be used for such purpose. Downloading data is necessary if the experiment is run on Cloud DevOps service. Similar to local running environment, dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
 % Currently, we do not find free hosting of models for individuals.
 % recommendation includes Git Large file storage or purpose cloud storage from Google or AWS
 % Warning: making model public downloadable will induce costs for each download.
@@ -208,15 +208,15 @@ For data science related domain, data needed to be loaded at the beginning of th
 
 \subsection{High Performance Computing}
 Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
-Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior works can be combined with the power of Cloud DevOps service and strengthen the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since own method can be compiled and prepared beforehand, generally only the second stage in Figure \ref{fig:cicdworkflow}
-is executed in self-hosted agent. Still, going through the whole pipeline costs extra time but makes the experiment more reliable.
+Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior works can be combined with the power of Cloud DevOps service and strengthen the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since dependency of experiment can be compiled and prepared beforehand, generally only the second stage in Figure \ref{fig:cicdworkflow}
+is executed in self-hosted agent. Still, going through the whole pipeline of DevOps costs extra time but makes the experiment more reliable.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{self-hosted.pdf}}
 \caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
 \end{figure}
 
-We make a simple experiment which uses OpenMP to parallel the program. The complexity depends on the scale of input data. For two kinds of input data, the detail is shown in {\bf Table} \ref{tab:time}.
+To illustrate this process, we make a simple experiment which uses OpenMP to parallel the program. The experiment complexity depends on the size of input data. For two kinds of input data, the detail is shown in {\bf Table} \ref{tab:time}.
 \begin{table}
 \centering
 \begin{tabular}{|c|p{1.5cm}|p{1.5cm}|}
@@ -237,10 +237,10 @@ Time & 4.3 Minutes & 10.5 Hours \\
 \caption{Running requirement of a sample OpenMP program for different size of data}\label{tab:time}
 \end{table}
 
-The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent. For public available Cloud DevOps server, we download the data from git large file storage server and for lab HPC server, we save the data on local storage node. The latter experiment cannot be run on Cloud DevOps server since their virtual machine is not equipped with enough resources. But we connect the HPC head node (DevOps agent) with GitLab and the experiment is triggered by updating source code to GitLab.
-These combination increases the reproducibility of the project.
+The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent by submitting job to one computing node. For public available Cloud DevOps server, we download the data from git large file storage server and for lab HPC server, we save the data on local storage node. The latter experiment cannot be run on Cloud DevOps server since their virtual machine is not equipped with enough resources. We connect the HPC head node (DevOps agent) with GitLab and the experiment is triggered by updating source code to GitLab.
+This combination increases the reproducibility of the project.
 
-For self-hosted case, storing data is much more obvious but using the absolute path may let the experiment hard to reproduce by others. Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data to the precomputed ground truth whether the data is downloaded freshly or loaded from cache. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
+For self-hosted case, storing data is much more obvious but using the absolute path may let the experiment hard to reproduce by others. Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data before preprocessing. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
 
 % introduce run the time complexity experiment on the self-hosted server
 
