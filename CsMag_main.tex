@@ -216,31 +216,13 @@ is executed in self-hosted agent. Still, going through the whole pipeline of Dev
 \caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
 \end{figure}
 
-To illustrate this process, we make a simple experiment which uses OpenMP to parallel the program. The experiment complexity depends on the size of input data. For two kinds of input data, the detail is shown in {\bf Table} \ref{tab:time}.
-\begin{table}
-\centering
-\begin{tabular}{|c|p{1.5cm}|p{1.5cm}|}
-\hline
-Data Size & 527 MB & 2.0 GB\\
-\hline
-Data Source & Git LFS & HPC Storage Node \\
-\hline
-Platform & Travis Public Agent & HPC Computing Node  \\
-\hline
-CPU Core & 2 & 32  \\ 
-\hline
-Peak Memory  & 3.1 GB  & 17.9 GB\\ 
-\hline
-Time & 4.3 Minutes & 10.5 Hours \\
-\hline
-\end{tabular}
-\caption{Running requirement of a sample OpenMP program for different size of data}\label{tab:time}
-\end{table}
+To illustrate this process, we make a simple experiment which uses OpenMP to parallel the program. The time complexity depends on the size of input data and the number of CPUs used. For medium-sized input data (about 0.5GB), we use a Travis public agent to run the experiment. The agent has 2 CPU cores and 7.5GB memory and our program consumes 3.1GB memory in peak and finishes in 4.3 minutes. Data is downloaded from a Git large file storage server and cached for later use. If we use 2.0GB dataset as input, 
+experiment should be done in a self-hosted environment since the public virtual machine of DevOps is not equipped with enough resources. We use the HPC storage node to save the dataset and the  CPU-intensive job is submitted  to one computing node by self-hosted agent on the head node. With parallelism enabled on 32 CPUs, we still need around 10 hours to run this experiment and the peak memory consumption is 18GB.
 
-The program is compiled from the same source code. We run a medium-sized experiment on the freely-available cloud server and the full experiment is run on self-hosted agent by submitting job to one computing node. For public available Cloud DevOps server, we download the data from git large file storage server and for lab HPC server, we save the data on local storage node. The latter experiment cannot be run on Cloud DevOps server since their virtual machine is not equipped with enough resources. We connect the HPC head node (DevOps agent) with GitLab and the experiment is triggered by updating source code to GitLab.
-This combination increases the reproducibility of the project.
+For these two cases, the program is compiled from the same source code and the two experiments can be triggered simultaneously by updating source code to GitHub. To achive this, we connect the HPC head node (DevOps agent) with GitLab and make a repository mirror from GitHub. This combination increases the reproducibility of the project.
 
-For self-hosted case, input data can be prepared beforehand and put outside of the code repository. In such case, researchers should be careful if they use the absolute path to load the data, since it lets the experiment hard to reproduce by others. Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data before preprocessing. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
+For the input data in self-hosted agent environment, there are some special problems practationer should pay attention to. Input data can be prepared beforehand and put outside of the code repository to save time and space. To In such case, loading the data using absolute path makes the experiment hard to reproduce by others. We suggest use symbol links or input argument to make some switches.
+Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data before preprocessing. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
 
 % introduce run the time complexity experiment on the self-hosted server
 
