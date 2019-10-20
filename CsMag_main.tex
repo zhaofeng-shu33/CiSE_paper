@@ -71,7 +71,7 @@ From the above analysis, we see that previous combination of DevOps with scienti
 	\item Easy to use and have flexible configuration
 	\item Unlimited Usage and rich computing resource
 \end{itemize}
- In the following sections, we will given an introduction to Cloud DevOps and show the feasibility to incorporate existing tools in Cloud DevOps. We then investigate the reproducibility problem in the domain of machine learning and high performance computing (HPC) and given some suggestions by example for the usage of Cloud DevOps. We believe Cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
+ In the following sections, we will given an introduction to Cloud DevOps and show the feasibility to incorporate existing tools in Cloud DevOps. We then investigate the reproducibility problem in the domain of machine learning and high performance computing (HPC) and give some examples for the usage of Cloud DevOps. We believe Cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
 
 \section{INFRASTRUCTURE}
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its two core components ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
@@ -202,7 +202,7 @@ ManyLinux & \checkmark & \checkmark & same as above \\
 
 For the running stage of our experiment, we just install the deployed package and run the actual experiment. The workflow specification for this stage  is similar with Listing \ref{lst:wd}. In \texttt{requirements.txt} file, we put the package name of our algorithm and other dependencies. We also use the \texttt{sacred} tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
 
-If real-world dataset is needed instead of artificial dataset, external platform should be used for storage since users can not upload their data to DevOps public agent. Data is downloaded at the beginning of the experiment, instructed by the code. Similar to local running environment, dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
+If real-world dataset is needed instead of artificial dataset, external platform should be used for storage since users can not upload their data to DevOps public agent. Data is downloaded at the beginning of the experiment using the API of specific programming language. Similar to local running environment, dependency cache can be used to cache the dataset for later experiment running and no download is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter somewhere on the public Internet, which is also quite large. 
 % Currently, we do not find free hosting of models for individuals.
 % recommendation includes Git Large file storage or purpose cloud storage from Google or AWS
 % Warning: making model public downloadable will induce costs for each download.
