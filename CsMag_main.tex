@@ -173,14 +173,14 @@ Since the configuration of Cloud DevOps is transparent to all users and the mech
 we encourage the researchers to run a partial and small scale experiment on public DevOps server and run their full experiment on self-hosted server using the same code base. 
 
 \section{CASE STUDIES}
-In the previous section, we briefly overview the common practice in DevOps and how it can be related with scientific experiment reproducibility. Different domains may still face different problems in practice. In this section, we show how Cloud DevOps can be used to solve the experiment reproducibility problems in the domain of Machine Learning and High Performance Computing. We believe Cloud DevOps can be used in experiments of other domains as well. 
+In the previous section, we briefly overview the common practice in DevOps and how it can be related with scientific experiment reproducibility. Different domains may still face different problems in practice. In this section, we use experiments from the domain of Machine Learning and High Performance Computing to show that how Cloud DevOps can be used to solve the reproducibility problems. We believe Cloud DevOps can be used in experiments of other domains as well. 
 
 \subsection{Machine Learning}
-Experiment Reproducibility is argued in ML community from different perspectives \cite{kegl2018ramp}. We notice that a platform called Sotabench, similar to DevOps service but dedicated to Deep Learning Reproducibility, has been online in recent month. Currently it only runs the prediction steps for limited public dataset. For more general domains of machine learning, it is preferable to use more simple and flexible approach to resolve the reproducibility problem. In this subsection, we consider some aspects of reproducibility using examples in the domain of machine learning. 
+Experiment Reproducibility is argued in ML community from different perspectives \cite{kegl2018ramp}. We notice that a platform called Sotabench, similar to DevOps service but dedicated to Deep Learning Reproducibility, has been online in recent month. Currently it only runs the prediction steps for limited public dataset. For more general domains of machine learning, it is preferable to use more simple and flexible approach to resolve the reproducibility problem. In this subsection, we consider some aspects of reproducibility using an experiment in the domain of machine learning. 
 
-For Machine Learning domain, the workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
+If researchers develop a new algorithm for a specific domain, the workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
 algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to how DevOps is used in software community.  The code can be tested against different environment and 
-the reusable library can be deployed to public available package repository. For example, in Python programming language, the platform of deployment is \url{pypi.org}. {\bf Table} \ref{tab:deploy} shows the deployment of a Python extension to pypi using DevOps. The deployment result shows that this library supports two versions of Python in a cross-platform way.
+the reusable library can be deployed to public available package repository. In our experiment, we implement the algorithm in Python C extension. The platform of deployment is \url{pypi.org}. {\bf Table} \ref{tab:deploy} shows the deployment of this extension to pypi using DevOps. The deployment result shows that this library supports two versions of Python in a cross-platform way.
 \begin{table}
 \centering
 \begin{tabular}{|c|c|c|c|}
@@ -197,9 +197,10 @@ ManyLinux & \checkmark & \checkmark & same as above \\
 \caption{cross-platform deployment matrix of a compiled algorithm used in scientific experiment}\label{tab:deploy}
 \end{table}
 
-For the experiment running stage, we can just install the deployed package and run the actual experiment. The workflow specification for this stage can be the same with Listing \ref{lst:wd}. In \texttt{requirements.txt} file, we put the package name of our algorithm and other dependencies. In one of our practice, we use \texttt{sacred} tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
+For the running stage of our experiment, we just install the deployed package and run the actual experiment. The workflow specification for this stage  is similar with Listing \ref{lst:wd}. In \texttt{requirements.txt} file, we put the package name of our algorithm and other dependencies. We also use the \texttt{sacred} tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
 
-For data science related domain, data needed to be loaded at the beginning of the experiment. DevOps service does not provide data storage hosting and external platform should be used for such purpose. Downloading data is necessary if the experiment is run on Cloud DevOps service. Similar to local running environment, dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
+If real-world dataset is needed instead of artificial dataset, data needed to be downloaded at the beginning of the experiment on public agent. many public  and external platform should be used. 
+Similar to local running environment, dependency cache can be used to cache the dataset for later experiment running and no downloading is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter, which is also quite large. 
 % Currently, we do not find free hosting of models for individuals.
 % recommendation includes Git Large file storage or purpose cloud storage from Google or AWS
 % Warning: making model public downloadable will induce costs for each download.
