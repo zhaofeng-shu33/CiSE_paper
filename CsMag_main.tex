@@ -49,7 +49,7 @@ The reproducibility of scientific experiment is vital for the advancement of dis
 
 \maketitle
 
-\chapterinitial{THE INTRODUCTION} As the development of Big Data and Artificial Intelligence, computational scientific experiments encompass more disciplines and are much more complex than before. Training a useful AI model not only takes long time, consumes large memory but also requires advanced computational device like GPU. Besides, traditional simulation experiment like sequence alignment can be done on new HPC cluster architecture like serveless using more advanced parallel algorithms \cite{niu2019leveraging}. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources which put new challenge on experiment reproducibility.
+\chapterinitial{THE INTRODUCTION} As the development of Big Data, computational scientific experiments encompass more disciplines and are much more complex than before. Cloud Computing offers many convenient architectures which has been proven useful in scientific experiment scenario.  For example, some highly paralleled experiments can be done on Cloud Serveless with affordable cost \cite{niu2019leveraging}. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources which put new challenge on experiment reproducibility.
 
 To solve these issues, there are three kind of approaches: Tools, Platform and Methodology. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment results. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Indeed, they are made by domain specific scientists, not by experienced full-time software engineers. These tools can store the experiment results, which requires users to configure the database locally. Researchers may not be experienced in database and the local data is difficult to share. Furthermore, most of these tools are not programming language neutral, which means researchers cannot use them in other programming languages. Still, something is better than nothing if researchers use these tools to manage their experiment.
 
@@ -71,7 +71,7 @@ From the above analysis, we see that previous combination of DevOps with scienti
 	\item Easy to use and have flexible configuration
 	\item Unlimited Usage and rich computing resource
 \end{itemize}
- In the following sections, we will give an introduction to Cloud DevOps and show the feasibility to incorporate existing tools in Cloud DevOps. We then investigate the reproducibility problem in the domain of machine learning and high performance computing (HPC) and give some examples for the usage of Cloud DevOps. We believe Cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
+ In the following sections, we will give an introduction to Cloud DevOps and show the feasibility to incorporate existing tools in Cloud DevOps. We then investigate the reproducibility problem with some proof-of-concept examples. These examples take the advantage of Cloud DevOps while integrated with old toolchains. We believe Cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
 
 \section{INFRASTRUCTURE}
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its two core components ``Continuous Integration and Deployment (CICD)'' \cite{bass2015devops}. 
@@ -176,42 +176,22 @@ Since the configuration of Cloud DevOps is transparent to all users and the mech
 we encourage the researchers to run a partial and small scale experiment on public DevOps server and run their full experiment on self-hosted server using the same code base. 
 
 \section{CASE STUDIES}
-In the previous section, we briefly overview the common practice in DevOps and how it can be related with scientific experiment reproducibility. Different domains may still face different problems in practice. In this section, we use experiments from the domain of Machine Learning and High Performance Computing to show that how Cloud DevOps can be used to solve the reproducibility problems. We believe Cloud DevOps can be used in experiments of other domains as well. 
+In the previous section, we briefly overview the common practice in DevOps and how it can be related with scientific experiment reproducibility. Different domains may still face different problems in practice. In this section, we use experiments from the domain of Graph Computing and Bioinformatic to show that how Cloud DevOps can be used to solve the reproducibility problems. We believe Cloud DevOps can be used in experiments of other domains as well. 
 
-\subsection{Machine Learning}
-Experiment Reproducibility is argued in ML community from different perspectives \cite{kegl2018ramp}. We notice that a platform called Sotabench, similar to DevOps service but dedicated to Deep Learning Reproducibility, has been online in recent month. Currently it only runs the prediction steps for limited public dataset. For more general domains of machine learning, it is preferable to use simpler and more flexible approach to resolve the reproducibility problem. In this subsection, we consider some aspects of reproducibility using an experiment in the domain of machine learning. 
-
-If researchers develop a new algorithm for a specific domain, the workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
+\subsection{Graph Computing}
+\subsubsection{Building and Running Phase}
+Generally, if researchers develop a new algorithm for a specific domain, the workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
 algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to how DevOps is used in software community.  The code can be tested against different environment and 
-the reusable library can be deployed to public available package repository. In our experiment, we implement the algorithm in Python C extension. The platform of deployment is \url{pypi.org}. {\bf Table} \ref{tab:deploy} shows the deployment of this extension to pypi using DevOps. The deployment result shows that this library supports two versions of Python in a cross-platform way.
-\begin{table}
-\centering
-\begin{tabular}{|c|c|c|c|}
-\hline
-OS & py3.6 & py3.7  & provider badge\\
-\hline
-Windows & \checkmark & \checkmark  & \includegraphics[width=2cm]{./appveyor.pdf}\\ 
-\hline
-MacOS & \checkmark & \checkmark & \includegraphics[width=2cm]{./travis.pdf}\\ 
-\hline
-ManyLinux & \checkmark & \checkmark & same as above \\
-\hline
-\end{tabular}
-\caption{cross-platform deployment matrix of a compiled algorithm used in scientific experiment}\label{tab:deploy}
-\end{table}
+the reusable library can be deployed to public available package repository. 
+We consider a simple triangle counting algorithm and apply it to considerable large graph. The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
+In the first phase, we compile the code and deploy the package to Ubuntu PPA. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5GB memory. The log of this experiment can be checked publicly on Travis, which shows
+our program consumes 3.1GB memory in peak and finishes in 4.3 minutes. 
 
-For the running stage of our experiment, we just install the deployed package and run the actual experiment. The workflow specification for this stage  is similar with Listing \ref{lst:wd}. In \texttt{requirements.txt} file, we put the package name of our algorithm and other dependencies. We also use the \texttt{sacred} tool \cite{greff2017sacred} to manage the experiment logic and each running log can be checked out publicly on the DevOps provider we used (Travis).
-
-If real-world dataset is needed instead of artificial dataset, external platform should be used for storage since users can not upload their data to DevOps public agent. Data is downloaded at the beginning of the experiment using the API of specific programming language. Similar to local running environment, dependency cache can be used to cache the dataset for later experiment running and no download is needed except for the first time. For deep learning domain, it is also necessary to save the model parameter somewhere on the public Internet, which is also quite large. 
-% Currently, we do not find free hosting of models for individuals.
-% recommendation includes Git Large file storage or purpose cloud storage from Google or AWS
-% Warning: making model public downloadable will induce costs for each download.
-
-% another experiment, focues on data fetching and model training and saving
-
-\subsection{High Performance Computing}
-Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
-Also, other dedicated tools can be used like Guix, which powers non-admin to manage and share their package on HPC \cite{courtes2015reproducible}. These prior works can be combined with the power of Cloud DevOps service and strengthen the reproducibility of HPC experiment. Since the general workflow for users of HPC is they submit a job from head node using a workload manager, the same job can be submitted by self-hosted DevOps agent, which is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since dependency of experiment can be compiled and prepared beforehand, generally only the second stage in Figure \ref{fig:cicdworkflow}
+\subsubsection{Using self-hosted agent}
+%Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
+Cloud DevOps public agent provides useful agent for general purpose task and is not suitable to run long-time experiment. For this kind of experiment, self-hosted agent should be used. Self-hosted agent includes laptops, workstations, lab bare-metal server, paid cloud virtual machines etc.
+For our triangle counting experiment, we use lab bare-metal server to run larger experiment. Since we use OpenMP to do some parallelism on algorithm level, the multi-core cpus help a lot in accelerating the experiment. Actually, our self-hosted agent is a head node in an HPC cluster and we use it to submit the job to computing node.
+The relationship is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since dependency of experiment can be compiled and prepared beforehand, generally only the second stage in Figure \ref{fig:cicdworkflow}
 is executed in self-hosted agent. Still, going through the whole pipeline of DevOps costs extra time but makes the experiment more reliable.
 
 \begin{figure}[!ht]
@@ -219,13 +199,9 @@ is executed in self-hosted agent. Still, going through the whole pipeline of Dev
 \caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
 \end{figure}
 
-To illustrate this process, we make a simple experiment which uses OpenMP to parallel the program. The time complexity depends on the size of input data and the number of CPUs used. For medium-sized input data (about 0.5GB), we use a Travis public agent to run the experiment. The agent has 2 CPU cores and 7.5GB memory and our program consumes 3.1GB memory in peak and finishes in 4.3 minutes. The input data is downloaded from GitHub large file storage server and cached for later use. If we use 2.0GB dataset as input, 
-experiment should be done in a self-hosted environment since the public virtual machine of DevOps is not equipped with enough resources. We use the HPC storage node to save the dataset and the  CPU-intensive job is submitted  to a computing node. With parallelism enabled on 32 CPUs, we still need around 10 hours to run this experiment and the peak memory consumption is 18GB.
+Our computing node has 32 CPUs, 128GB memory and we still need around 10 hours to run this experiment and the peak memory consumption is 18GB.
 
-For these two cases, the program is compiled from the same source code and the two experiments can be triggered simultaneously by updating source code to GitHub. To achieve this, we connect the HPC head node (DevOps agent) with GitLab and make a repository mirror from GitHub. This combination increases the reproducibility of the project. The log of each running is available on GitLab and Travis respectively.
-
-For the input data in self-hosted agent environment, there are some special problems practitioner should pay attention to. Input data can be prepared beforehand and put outside of the code repository to save time and space. To In such case, loading the data using absolute path makes the experiment hard to reproduce by others. We suggest use symbol links or input argument to make some switches.
-Also, it is not transparent if loading data directly from self-hosted disk because others do not know whether it is original data or not. Checksum is a good way to guarantee this. We recommend researchers to verify the checksums of the data before preprocessing. By guaranteeing the data integrity can the experiment be more rigorous and convincing.
+For these two cases, the program is compiled from the same source code and the two experiments can be triggered simultaneously by updating source code to GitHub. To achieve this, we connect the HPC head node (DevOps agent) with GitLab and make a repository mirror from GitHub. This combination increases the reproducibility of the project. The log of each running for self-hosted agent is available publicly on GitLab.
 
 % introduce run the time complexity experiment on the self-hosted server
 
