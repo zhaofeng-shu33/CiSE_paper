@@ -178,16 +178,15 @@ we encourage the researchers to run a partial and small scale experiment on publ
 \section{CASE STUDIES}
 In the previous section, we briefly overview the common practice in DevOps and how it can be related with scientific experiment reproducibility. Different domains may still face different problems in practice. In this section, we use experiments from the domain of Graph Computing and Bioinformatic to show that how Cloud DevOps can be used to solve the reproducibility problems. We believe Cloud DevOps can be used in experiments of other domains as well. 
 
-\subsection{Graph Computing}
-\subsubsection{Building and Running Phase}
+\subsection{Using public agent}
 Generally, if researchers develop a new algorithm for a specific domain, the workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
 algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to how DevOps is used in software community.  The code can be tested against different environment and 
 the reusable library can be deployed to public available package repository. 
 We consider a simple triangle counting algorithm and apply it to considerable large graph. The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
-In the first phase, we compile the code and deploy the package to Ubuntu PPA. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5GB memory. The log of this experiment can be checked publicly on Travis, which shows
+In the first phase, we compile the code and deploy the package to Ubuntu PPA. We also demonstrate the code can be compiled and run successfully on Windows by using Appveyor. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5GB memory. The log of this experiment can be checked publicly on Travis, which shows
 our program consumes 3.1GB memory in peak and finishes in 4.3 minutes. 
 
-\subsubsection{Using self-hosted agent}
+\subsection{Using lab bare-metal server}
 %Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
 Cloud DevOps public agent provides useful agent for general purpose task and is not suitable to run long-time experiment. For this kind of experiment, self-hosted agent should be used. Self-hosted agent includes laptops, workstations, lab bare-metal server, paid cloud virtual machines etc.
 For our triangle counting experiment, we use lab bare-metal server to run larger experiment. Since we use OpenMP to do some parallelism on algorithm level, the multi-core cpus help a lot in accelerating the experiment. Actually, our self-hosted agent is a head node in an HPC cluster and we use it to submit the job to computing node.
@@ -201,11 +200,17 @@ is executed in self-hosted agent. Still, going through the whole pipeline of Dev
 
 Our computing node has 32 CPUs, 128GB memory and we still need around 10 hours to run this experiment and the peak memory consumption is 18GB.
 
-For these two cases, the program is compiled from the same source code and the two experiments can be triggered simultaneously by updating source code to GitHub. To achieve this, we connect the HPC head node (DevOps agent) with GitLab and make a repository mirror from GitHub. This combination increases the reproducibility of the project. The log of each running for self-hosted agent is available publicly on GitLab.
+Our self-hosted experiment is triggered when we update the source code repository on GitHub. To achieve this, we connect the HPC head node (DevOps agent) with GitLab and make a repository mirror from GitHub. The log of each running for self-hosted agent is available publicly on GitLab.
 
-% introduce run the time complexity experiment on the self-hosted server
+\subsection{Using paid cloud infrastructure}
+Some laboratories rent virtual machines from public cloud provider and do not deploy their bare-metal servers. In this case, Cloud DevOps can be incorporated directly into their existing workflow. 
 
-% graph computation experiment, focues on parallel power and HPC cluster usage
+The experiment we use is a sequence alignment algorithm applied to protein sequences. 
+The code is available at \url{https://github.com/zhaofeng-shu33/ssw_experiment}. The experiment is actually run on a Serverless infrastructure, which supports high parallelism. Serverless infrastructure is charged by usage.
+Since there are many concurrent experiments we need a client to coordinate them. The client program we used is run on public agent provided by Microsoft Azure. We first compile the source code and deploy it to AWS Lambda platform using Travis. Then we run the client program to invoke these functions.
+The experiment finishes in 2 minutes. 
+
+From this example we also notice that Cloud DevOps is not binded to a specific provider. We can use DevOps provided by Microsoft to trigger the experiments deployed on Amazon.
 
 \section{CONCLUSION}
 DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. Researchers can run their medium-sized or partial version of experiments directly on public DevOps service and complete their full experiment using self-hosted agent. Currently, it is unknown the accessibility of DevOps by scientific community beyond scientific software development. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
