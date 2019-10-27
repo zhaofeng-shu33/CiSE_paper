@@ -181,36 +181,35 @@ In the previous section, we briefly overview the common practice in DevOps and h
 \subsection{Using public agent}
 Generally, if researchers develop a new algorithm for a specific domain, the workflow shown in Fig \ref{fig:cicdworkflow} can be further decomposed into two phases:
 algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to how DevOps is used in software community.  The code can be tested against different environment and 
-the reusable library can be deployed to public available package repository. 
-We consider a simple triangle counting algorithm and apply it to considerable large graph. The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
-In the first phase, we compile the code and deploy the package to Ubuntu PPA. We also demonstrate the code can be compiled and run successfully on Windows by using Appveyor. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5GB memory. The log of this experiment can be checked publicly on Travis, which shows
+the reusable library can be deployed to public available package repository.
+ 
+Following this two-phase philosophy, we consider a simple triangle counting algorithm and apply it to considerable large graph. The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
+In the first phase, we compile the code and deploy the package to Ubuntu PPA. We also demonstrate the code can be compiled and run successfully on Windows by using AppVeyor. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5GB memory. The log of this experiment can be checked publicly on Travis, which shows
 our program consumes 3.1GB memory in peak and finishes in 4.3 minutes. 
 
 \subsection{Using self-hosted agent}
 %Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
-Cloud DevOps public agent provides useful agent for general purpose task and is not suitable to run long-time experiment. For this kind of experiment, self-hosted agent should be used. Self-hosted agent includes laptops, workstations, lab bare-metal server, paid cloud virtual machines etc.
-For our triangle counting experiment, we use lab bare-metal server to run larger experiment. Since we use OpenMP to do some parallelism on algorithm level, the multi-core cpus help a lot in accelerating the experiment. Actually, our self-hosted agent is a head node in an HPC cluster and we use it to submit the job to computing node.
-The relationship is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since dependency of experiment can be compiled and prepared beforehand, generally only the second stage in Figure \ref{fig:cicdworkflow}
-is executed in self-hosted agent. Still, going through the whole pipeline of DevOps costs extra time but makes the experiment more reliable.
+Cloud DevOps public agent provides useful agent for general purpose task but is not suitable to run long-time experiment due to time limitation for a single run. For this kind of experiment, self-hosted agent should be used. Self-hosted agent includes laptops, workstations, lab bare-metal server, paid cloud virtual machines etc.
+For our triangle counting experiment, we use lab bare-metal server to run larger experiment. Since we use OpenMP to do some parallelism on algorithm level, the multi-core CPUs on the server help a lot in accelerating the experiment. For our triangle counting experiment, we choose a larger dataset which requires 18GB peak memory to consumes it. We use GitLab as the DevOps service provider and our self-hosted agent is a head node in an HPC cluster and we use it to submit the job to computing nodes.
+The relationship is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since dependency of experiment can be compiled and prepared beforehand, generally only blue box workflow in Figure \ref{fig:cicdworkflow}
+is executed in self-hosted agent. Going through the whole pipeline of DevOps costs extra time but makes the experiment more reliable.
 
 \begin{figure}[!ht]
 \centerline{\includegraphics[width=18.5pc]{self-hosted.pdf}}
 \caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
 \end{figure}
 
-Our computing node has 32 CPUs, 128GB memory and we still need around 10 hours to run this experiment and the peak memory consumption is 18GB.
-
-Our self-hosted experiment is triggered when we update the source code repository on GitHub. To achieve this, we connect the HPC head node (DevOps agent) with GitLab and make a repository mirror from GitHub. The log of each running for self-hosted agent is available publicly on GitLab.
+Each computing node of ours has 56 CPUs, 256GB memory and we need around 5 hours to run this experiment. The log of each running for self-hosted agent is available publicly on GitLab.
 
 \subsection{Incorporating other cloud infrastructure}
 Cloud DevOps is not exclusive and can incorporate other infrastructure as well.  
 
 The experiment we use is a sequence alignment algorithm applied to protein sequences. 
-The code is available at \url{https://github.com/zhaofeng-shu33/ssw_experiment}. originally the experiment is run on AWS Lambda, which is a Serverless infrastructure provided by Amazon. Serverless infrastructure allows many concurrent experiments to run in isolated environment and
-we need a client to coordinate them. The client program we used is run on public agent provided by Microsoft Azure. We first compile the experiment source code and deploy it to AWS Lambda platform using Travis. Then the client program is run to invoke these functions and collect the experiment results.
+The code is available at \url{https://github.com/zhaofeng-shu33/ssw_experiment}. Originally the experiment is run on AWS Lambda, which is a Serverless infrastructure provided by Amazon \cite{niu2019leveraging}. Serverless infrastructure allows many concurrent experiments to run in isolated environment and
+we need a client to coordinate them. The client program we used is run on public agent provided by Microsoft Azure. We first compile the experiment source code and deploy it to AWS Lambda platform using Travis. Then the client program is run to invoke Lambda functions and collect the experiment results.
 The overall experiment finishes in 2 minutes and produces public viewable logs on Azure pipelines. 
 
-From this example we also notice that Cloud DevOps is not binded to a specific provider. We can use DevOps provided by Microsoft to trigger the experiments deployed on Amazon.
+From this example we also notice that Cloud DevOps is not bound to a specific provider. We can use DevOps provided by Microsoft to trigger the experiments deployed on Amazon.
 
 \section{CONCLUSION}
 DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. Researchers can run their medium-sized or partial version of experiments directly on public DevOps service and complete their full experiment using self-hosted agent. Currently, it is unknown the accessibility of DevOps by scientific community beyond scientific software development. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
