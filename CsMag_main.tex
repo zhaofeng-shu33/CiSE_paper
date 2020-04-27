@@ -181,7 +181,7 @@ Generally, if researchers develop a new algorithm for a specific domain, the wor
 algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to how DevOps is used in software community.  The code can be tested against different environment and 
 the reusable library can be deployed to public available package repository.
  
-Following this two-phase philosophy, we consider a simple triangle counting algorithm and apply it to considerable large graph. The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
+Following this two-phase philosophy, we consider a simple triangle counting algorithm and apply it to considerable large graph. %The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
 In the first phase, we compile the code and deploy the package to Ubuntu PPA. We also demonstrate the code can be compiled and run successfully on Windows by using AppVeyor. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5GB memory. The log of this experiment can be checked publicly on Travis, which shows
 our program consumes 3.1GB memory in peak and finishes in 4.3 minutes. 
 
