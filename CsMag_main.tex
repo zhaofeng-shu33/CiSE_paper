@@ -1,9 +1,10 @@
-\documentclass{IEEEcsmag}
+\documentclass[10pt, conference, compsocconf]{IEEEtran}
 
-\usepackage[colorlinks,urlcolor=blue,linkcolor=blue,citecolor=blue]{hyperref}
 
 \usepackage{color}
 \usepackage{listings}
+\usepackage{url}
+\usepackage{graphicx}
 \usepackage{amssymb}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \lstset{
@@ -11,45 +12,39 @@ numbers=left,
 numbersep=5pt,
 numberstyle=\tiny\color{mygray}
 }
-\jvol{XX}
-\jnum{XX}
-\paper{8}
-\jmonth{May/June}
-\jname{CiSE}
-\pubyear{2019}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
 
-\setcounter{secnumdepth}{0}
 
 \begin{document}
 
-\sptitle{Department: Electronic Engineering}
-\editor{Editor: Name, xxxx@email}
+%\sptitle{Department: Electronic Engineering}
+%\editor{Editor: Name, xxxx@email}
 
 \title{Reproducing Scientific Experiment with Cloud DevOps}
 
-\author{Feng Zhao}
-\affil{Tsinghua University}
-
-\author{Xingzhi Niu}
-\affil{University of Washington, Tacoma}
-
-\author{Shao-Lun Huang}
-\affil{Tsinghua University}
-
-\author{\textbf{L}in Zhang}
-\affil{Tsinghua University}
-
-\markboth{Department Head}{Paper title}
-
+\author{\IEEEauthorblockN{Feng Zhao}
+\IEEEauthorblockA{Tsinghua University \\ Beijing, China \\ zhaof17@mails.tsinghua.edu.cn}
+\and
+\IEEEauthorblockN{Xingzhi Niu}
+\IEEEauthorblockA{University of Washington, Tacoma}
+\and
+\IEEEauthorblockN{Shao-Lun Huang}
+\IEEEauthorblockA{Tsinghua University}
+\and
+\IEEEauthorblockN{Lin Zhang}
+\IEEEauthorblockA{Tsinghua University}
+}
+\maketitle
 \begin{abstract}
 The reproducibility of scientific experiment is vital for the advancement of disciplines based on previous work. To achieve this goal, many researchers focus on complex methodology and self-invented tools which have difficulty in practical usage. In this article, we introduce the DevOps infrastructure from software engineering community and shows how DevOps can be used effectively to reproduce experiments for computer science related disciplines. DevOps can be enabled using freely available cloud computing machines for medium sized experiment and lab HPC environment for large scale computing, thus powering researchers to share their experiment result with others in a more reliable way.
 \end{abstract}
+\begin{IEEEkeywords}
+cloud infrastructure; DevOps; scientific computing
+\end{IEEEkeywords}
 
-\maketitle
-
-\chapterinitial{THE INTRODUCTION} As the development of Big Data, computational scientific experiments encompass more disciplines and are much more complex than before. Cloud Computing offers many convenient architectures which has been proven useful in scientific experiment scenario.  For example, some highly paralleled experiments can be done on Cloud Serveless with affordable cost \cite{niu2019leveraging}. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources which put new challenge on experiment reproducibility.
+\section{Introduction}
+As the development of Big Data, computational scientific experiments encompass more disciplines and are much more complex than before. Cloud Computing offers many convenient architectures which has been proven useful in scientific experiment scenario.  For example, some highly paralleled experiments can be done on Cloud Serveless with affordable cost \cite{niu2019leveraging}. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources which put new challenge on experiment reproducibility.
 
 To solve these issues, there are three kind of approaches: Tools, Platform and Methodology. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment results. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Indeed, they are made by domain specific scientists, not by experienced full-time software engineers. These tools can store the experiment results, which requires users to configure the database locally. Researchers may not be experienced in database and the local data is difficult to share. Furthermore, most of these tools are not programming language neutral, which means researchers cannot use them in other programming languages. Still, something is better than nothing if researchers use these tools to manage their experiment.
 
@@ -83,9 +78,9 @@ However, Everest suffers from problems mentioned in the last Section. From the w
 
 % notebook approach 
 There are many freely available Cloud DevOps service for open source project which greatly powers individual developers and open source community. {\bf Table} \ref{tab1} gives some famous providers with the list of their features.
-
+å
 \begin{table}
-\caption{Comparison of Cloud DevOps provider (until 2019)}
+\caption{Comparison of Cloud DevOps provider (until 2020)}
 \label{table}
 \small
 \begin{tabular}{|m{0.8cm}|@{\hspace{0.3em}}>{\centering}m{0.8cm}@{\hspace{0.8em}}|>{\centering}m{0.8cm}|>{\centering}m{0.8cm}|>{\centering}m{0.8cm}|c|}
@@ -144,7 +139,7 @@ Usually Cloud DevOps is used in cooperation with a source code repository. The s
 The code repository is used for version control and each running of the agent produces a log file. The source code version and the log file are 1-to-1 correspondent. Inspecting the public available log and its corresponding source code help others to reproduce the same result using public available build machine or on local workstations.
 
 \begin{figure}[!ht]
-\centerline{\includegraphics[width=18.5pc]{principal.pdf}}
+\includegraphics[width=18.5pc]{principal.pdf}
 \caption{Interaction of DevOps server with agent and code repository}\label{fig:principal}
 \end{figure}
 
@@ -153,7 +148,7 @@ Though we can use the cloud computing resources for unlimited time, the algorith
 In this step, users should determine how to execute their code sequentially. The basic workflow can be summarized in \textbf{Figure} \ref{fig:cicdworkflow}.
 
 \begin{figure}[!ht]
-\centerline{\includegraphics[width=18.5pc]{workflow.pdf}}
+\includegraphics[width=18.5pc]{workflow.pdf}
 \caption{CICD pipeline illustration. The steps within blue boxes are specific stages for scientific experiments. }\label{fig:cicdworkflow}
 \end{figure}
 %\item build artifact or have deployment stage
@@ -225,15 +220,6 @@ This work is supported by the Natural Science Foundation of China 61807021, Shen
 
 
 
-\begin{IEEEbiography}{Feng Zhao}{\,} is
-currently with Tsinghua University, PR. China. He received the B.S. degree and is pursing Ph.D degree at Department of Electronic Engineering. His research interest focus on machine learning, graph computing and scientific computing. Contact him at zhaof17@mails.tsinghua.edu.cn.
-\end{IEEEbiography}
-
-\begin{IEEEbiography}{Shaolun Huang,}{\,}is a Professor with Tsinghua-Berkley Shenzhen Institute. Contact him at shaolun.huang@sz.tsinghua.edu.cn.
-\end{IEEEbiography}
-
-\begin{IEEEbiography}{Lin Zhang,}{\,}is a Professor with Tsinghua Shenzhen International Graduate School. Contact him at linzhang@tsinghua.edu.cn.
-\end{IEEEbiography}
 
 \end{document}
 
