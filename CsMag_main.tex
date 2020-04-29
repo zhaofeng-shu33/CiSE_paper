@@ -39,16 +39,18 @@ numberstyle=\tiny\color{mygray}
 %}
 \maketitle
 \begin{abstract}
-The reproducibility of scientific experiment is vital for the advancement of disciplines based on previous work. To achieve this goal, many researchers focus on complex methodology and self-invented tools which have difficulty in practical usage. In this article, we introduce the DevOps infrastructure from software engineering community and shows how DevOps can be used effectively to reproduce experiments for computer science related disciplines. DevOps can be enabled using freely available cloud computing machines for medium sized experiment and self-hosted computing engines for large scale computing, thus powering researchers to share their experiment result with others in a more reliable way.
+The reproducibility of scientific experiment is vital for the advancement of disciplines based on previous work. To achieve this goal, many researchers focus on complex methodology and self-invented tools which have difficulty in practical usage. In this article, we introduce the DevOps infrastructure from software engineering community and shows how DevOps can be used effectively for heterogeneous agents to reproduce experiments for computer science related disciplines. DevOps can be enabled using freely available cloud computing machines for medium sized experiment and self-hosted computing engines for large scale computing, thus powering researchers to share their experiment result with others in a more reliable way.
 \end{abstract}
 \begin{IEEEkeywords}
-cloud infrastructure; DevOps; scientific computing
+cloud infrastructure; DevOps; scientific workflow management
 \end{IEEEkeywords}
 
 \section{Introduction}
-As the development of Big Data, computational scientific experiments encompass more disciplines and are much more complex than before. Cloud Computing offers many convenient architectures which has been proven useful in scientific experiment scenario.  For example, some highly paralleled experiments can be done on Cloud Serveless with affordable cost \cite{niu2019leveraging}. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources which put new challenge on experiment reproducibility.
+As the development of Big Data, computational scientific experiments encompass more disciplines and are much more complex than before. Cloud Computing offers many convenient architectures which has been proven useful in scientific experiment scenario.  For example, some highly paralleled experiments can be done on Cloud Serveless with affordable cost \cite{niu2019leveraging}. There are also other emerging domains which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources, which put challenges on experiment reproducibility.
 
-
+Besides these traditional challenges, many experiments, especially in hardware related domain, are conducted on
+embedded devices. Reproducing these experiments are more difficult than simulation-only ones since other researchers may not share exactly the same model. The experiment runtime vary so greatly that it is hard to find a
+one-fit-all solution for the experiment reproducibility problem.
 
 To solve the reproducibility issue, there are three kinds of approaches: Tools, Platform and Methodology. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment results. These tools are valuable but may suffer from bad-maintainability and difficult configuration. Indeed, they are made by domain specific scientists, not by experienced full-time software engineers. These tools can store the experiment results, which requires users to configure the database locally but researchers may not be experienced in database. Also the local data is difficult to share. Furthermore, most of these tools are not programming language neutral, which means researchers cannot use them in other programming languages. Still, something is better than nothing if researchers use these tools to manage their experiment.
 
