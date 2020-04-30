@@ -19,24 +19,22 @@ numberstyle=\tiny\color{mygray}
 
 \begin{document}
 
-%\sptitle{Department: Electronic Engineering}
-%\editor{Editor: Name, xxxx@email}
 
 \title{Reproducing Scientific Experiment with Cloud DevOps}
 
 \author{Anonymous Author}
-%\author{\IEEEauthorblockN{Feng Zhao}
-%\IEEEauthorblockA{Tsinghua University \\ Beijing, China \\ zhaof17@mails.tsinghua.edu.cn}
-%\and
-%\IEEEauthorblockN{Xingzhi Niu}
-%\IEEEauthorblockA{University of Washington, Tacoma}
-%\and
-%\IEEEauthorblockN{Shao-Lun Huang}
-%\IEEEauthorblockA{Tsinghua University}
-%\and
-%\IEEEauthorblockN{Lin Zhang}
-%\IEEEauthorblockA{Tsinghua University}
-%}
+\author{\IEEEauthorblockN{Feng Zhao}
+\IEEEauthorblockA{Tsinghua University \\ Beijing, China \\ zhaof17@mails.tsinghua.edu.cn}
+\and
+\IEEEauthorblockN{Xingzhi Niu}
+\IEEEauthorblockA{University of Washington, Tacoma}
+\and
+\IEEEauthorblockN{Shao-Lun Huang}
+\IEEEauthorblockA{Tsinghua University}
+\and
+\IEEEauthorblockN{Lin Zhang}
+\IEEEauthorblockA{Tsinghua University}
+}
 \maketitle
 \begin{abstract}
 The reproducibility of scientific experiment is vital for the advancement of disciplines based on previous work. To achieve this goal, many researchers focus on complex methodology and self-invented tools which have difficulty in practical usage. In this article, we introduce the DevOps infrastructure from software engineering community and shows how DevOps can be used effectively for heterogeneous agents to reproduce experiments for computer science related disciplines. DevOps can be enabled using freely available cloud computing machines for medium sized experiment and self-hosted computing engines for large scale computing, thus powering researchers to share their experiment result with others in a more reliable way.
@@ -205,7 +203,7 @@ is executed in self-hosted agent. Going through the whole pipeline of DevOps cos
 Each computing node of ours has 56 CPUs, 256GB memory and we need around 5 hours to run this experiment. The log of each running for self-hosted agent is available publicly on GitLab.
 
 \subsection{Incorporating other cloud infrastructure}
-Cloud DevOps is not exclusive and can incorporate other infrastructure as well.  
+Cloud DevOps is not exclusive and can incorporate other infrastructure as well.
 
 The experiment we use is a sequence alignment algorithm applied to protein sequences. 
 Originally the experiment is run on AWS Lambda, which is a Serverless infrastructure provided by Amazon \cite{niu2019leveraging}. Serverless infrastructure allows many concurrent experiments to run in isolated environment and
@@ -218,14 +216,14 @@ From this example we also notice that Cloud DevOps is not bound to a specific pr
 In this subsection, we demonstrate Cloud DevOps is able to track the experiment running time for
 self-hosted armhf architecture. We have used a Raspberry Pi  3B Model with Raspbian OS connected
 with GitHub Actions. The task is to compile a newer version of slurm, which is a cluster management
-toolkit.
+toolkit. It takes about 2 hours to finish one run, which is slower than the same task on X86 architecture. The console output of each build on our Rasberry Pi is captured and uploaded to GitHub, which is similar to the centrally managed build system of debian. Though hardware environment may not be exactly same, other researchers can still benefit from viewing the logs to reproduce or customize their own experiment.
 
 \section{CONCLUSION}
-DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. Researchers can run their medium-sized or partial version of experiments directly on public DevOps service and complete their full experiment using self-hosted agent. Currently, it is unknown the accessibility of DevOps by scientific community beyond scientific software development. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
+DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. Researchers can run experiment demo,  medium-sized or partial version of experiments directly on public DevOps service and complete their computing intensive or hardware-related experiments using self-hosted agent. Currently, it is unknown that beyond scientific software development, how much the accessibility of DevOps by scientific community is. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
 
 \section{ACKNOWLEDGMENT}
 
-%This work is supported by the Natural Science Foundation of China 61807021, Shenzhen Science and Technology Research and Development Funds (JCYJ20170818094022586), and Innovation and entrepreneurship project for overseas high-level talents of Shenzhen (KQJSCX20180327144037831).
+This work is supported by the Natural Science Foundation of China 61807021, Shenzhen Science and Technology Research and Development Funds (JCYJ20170818094022586), and Innovation and entrepreneurship project for overseas high-level talents of Shenzhen (KQJSCX20180327144037831).
 
 
 \bibliographystyle{IEEEtran}
