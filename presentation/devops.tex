@@ -1,7 +1,17 @@
 \documentclass[notheorems]{beamer}
 \usetheme{Lab2C}
 \usepackage{graphicx}
+\usepackage{array}
 \usepackage{subcaption}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\lstset{
+numbers=left,
+numbersep=5pt,
+numberstyle=\tiny\color{mygray}
+}
+
 \newif\ifbeamer
 \beamertrue
 
@@ -95,22 +105,142 @@ Pros: no external barrier
 
 Cons: varies between researchers
 \end{frame}
+
+\begin{frame}
+\frametitle{Our Method -- Experiments with Cloud DevOps}
+Advantages:
+\begin{itemize}
+	\item High availability of the service and well maintenance of the infrastructure
+	\item Easy to use and flexible to configure
+	\item Unlimited usage and rich computing resource
+\end{itemize}
+\end{frame}
+\frame{\tableofcontents[currentsection]}
 \section{Infrastructure}
-\section{Experiments}
+\begin{frame}
+\frametitle{What is DevOps}
+
+Process of DevOps
+\begin{figure}
+\includegraphics[width=5cm]{pic/what-is-devops.jpg}
+\end{figure}
+Core Components: Build and Deployment (CICD)
+\end{frame}
+
+\begin{frame}
+\frametitle{Cloud DevOps service provider}
+
+\begin{table}
+\caption{Comparison of Cloud DevOps provider (until 2020)}
+\label{table}
+\small
+\begin{tabular}{|@{\hspace{0.1em}}m{0.9cm}|@{\hspace{0.1em}}>{\centering}m{0.9cm}@{\hspace{0.9em}}|@{	\hspace{-0.1em}}>{\centering}m{0.9cm}|@{\hspace{0.2em}}>{\centering}m{0.8cm}|>{\centering}m{0.8cm}|>{\centering}m{1.0cm}|c|}
+\hline
+& 
+{\scriptsize AppVeyor }& 
+ {\scriptsize Azure pipelines} & {\scriptsize CircleCI } &  {\scriptsize GitLab CICD} & {\scriptsize GitHub Action}  & {\scriptsize Travis} \\
+\hline
+ {\scriptsize Platform} & {\scriptsize Windows Linux} & All & All & Linux docker & All & All\\
+\hline
+ {\scriptsize Parallel} & 1 & 10 & 4 & 8 &  20 & 5\\
+ \hline
+ {\scriptsize  Selfhost } & Y & Y & N & Y & Y & N\\
+ \hline
+ {\scriptsize Artifact} & N & Y & Y & Y & Y & N\\
+ \hline
+\end{tabular}
+\label{tab1}
+\end{table}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Choosing Environment for Agent}
+\begin{enumerate}
+\item virtual machine or docker container.
+\item public cloud service or local runner.
+\item programming language and version.
+\end{enumerate}
+
+\begin{lstlisting}[caption={environment configuration}, captionpos=b]
+os: linux
+dist: xenial
+language: python
+python: 3.6
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Workflow Principle}
+\begin{figure}
+\centering
+\begin{subfigure}{0.4\textwidth}
+\includegraphics[width=\textwidth]{../principal.pdf}
+\caption{Interaction of different components}
+\end{subfigure}~
+\begin{subfigure}{0.4\textwidth}
+\includegraphics[width=\textwidth]{../workflow.pdf}
+\caption{pipelines for scientific experiments}
+\end{subfigure}
+\end{figure}
+
+\begin{lstlisting}[caption={workflow description}, label={lst:wd}, captionpos=b]
+install: 
+  - pip install -r requirements.txt
+script: # run experiment
+  - python main.py
+\end{lstlisting}
+
+\end{frame}
+\frame{\tableofcontents[currentsection]}
+\section{Case Studies}
+\begin{frame}
+\frametitle{Using public agent}
+\begin{itemize}
+\item implementating a triangle counting algorithm in C++
+\item deploy the package to Ubuntu PPA
+\item run the medium-scale experiment on Travis CI public server
+\end{itemize}
+Server VM has 2 CPU cores and 7.5 GB memory space.
+
+Our program finishes in 4.3 minutes and consumes 3.1GB memory.
+\end{frame}
+\begin{frame}
+\frametitle{Using self-hosted agent}
+\begin{itemize}
+\item Using OpenMP to parallel the triangle counting algorithms
+\item the experiment is run using a computing node with 32 CPUs.
+\item the running log is uploaded to server automatically.
+\end{itemize}
+\begin{figure}
+\includegraphics[width=5cm]{../self-hosted.pdf}
+\caption{self-hosted computing cluster connected to DevOps server}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{incorporating other cloud infrastructure}
+\begin{itemize}
+\item incorporate a serverless computing experiment
+\item replace the private client with public agent
+\end{itemize}
+\begin{figure}
+\includegraphics[width=0.8\textwidth]{pic/serverless_show.png}
+\end{figure}
+\end{frame}
 \section{Conclusion}
 \begin{frame}
 \frametitle{Conclusion}
 \begin{itemize}
-\item Formulate Info-Detection method
-\item Propose improved principal sequence of partition algorithm 
-\item Demonstrate Info-Detection performs well on some datasets
+\item Researchers should make their experiments reproducible
+\item Cloud DevOps is a good chice for such purpose
 \end{itemize}
 \end{frame}
+
 \begin{frame}
 \frametitle{}
 \begin{block}{}
 \centering
-Thank you!
+{\Huge Thank you!}
 \end{block}
 \end{frame}
 \end{document}
