@@ -1,0 +1,33 @@
+% Copyright 2018 by xiangxiang-xu, zhaofeng-shu33
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\mode<presentation>
+\newif\ifbeamer@secheader
+\beamer@secheaderfalse
+
+\DeclareOptionBeamer{secheader}{\beamer@secheadertrue}
+\ProcessOptionsBeamer
+\definecolor{thupurple}{HTML}{82318E} % specify the color `sturcture` means to use the complete theme
+
+\setbeamercolor{structure}{fg=thupurple}
+%outer color themes
+\usecolortheme{whale}
+%inner color themes
+\usecolortheme{orchid}
+
+\useinnertheme[shadow]{rounded}
+%custom outer theme
+\useoutertheme{Lab2C}
+
+\usefonttheme{professionalfonts}
+
+\ifbeamer@secheader\else\setbeamertemplate{headline}[default]\fi
+
+\mode
+<all>

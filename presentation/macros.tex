@@ -1,0 +1,48 @@
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bm}
+\usepackage{hyperref}
+\usepackage{footmisc}
+\usepackage{xcolor}
+
+
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator\E{\mathbb{E}}
+\DeclareMathOperator\Var{\mathrm{Var}}
+\def\R{\mathbb{R}}
+\def\P{\mathcal{P}}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}
+\DeclarePairedDelimiter\inner{\langle}{\rangle}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\def\red#1{\textcolor{red}{#1}}
+\makeatletter
+\newcommand{\algorithmicfunction}{\textbf{function}}
+\newcommand{\algorithmicendfunction}{\algorithmicend\ \algorithmicfunction}
+\newenvironment{ALC@func}{\begin{ALC@g}}{\end{ALC@g}}
+\newcommand{\FUNCTION}[2][default]{\ALC@it\algorithmicfunction\ #2\ %
+\textbf{:}%
+\ALC@com{#1}\begin{ALC@func}}
+\ifthenelse{\boolean{ALC@noend}}{
+    \newcommand{\ENDFUNCTION}{\end{ALC@func}}
+  }{
+    \newcommand{\ENDFUNCTION}{\end{ALC@func}\ALC@it\algorithmicendfunction}
+  }
+\makeatother
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
