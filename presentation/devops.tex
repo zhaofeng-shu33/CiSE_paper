@@ -42,29 +42,32 @@ numberstyle=\tiny\color{mygray}
 		\end{columns}
 \begin{figure}
 	\centering
-	\begin{subfigure}{0.33\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 		\includegraphics[width=\textwidth]{pic/github_actions.png}
 		\caption{DevOps workflow}
 	\end{subfigure}~~~~~
-	\begin{subfigure}{0.33\textwidth}
+	\begin{subfigure}{0.4\textwidth}
 		\includegraphics[width=\textwidth]{pic/general_workflow.png}
 		\caption{Cloud DevOps provider}
 	\end{subfigure}
 \end{figure}  
-DevOps is a kind of workflow management methodology in software engineering field.
+DevOps is a kind of workflow management method in software engineering.
 \end{frame}
 
 \begin{frame}
-\frametitle{Challenges in Reproducibility}
+\frametitle{Challenges in Experiment Reproducibility}
+
+A given Python script from a Nature article gave different results on different Operating Systems [1]
+
 \begin{itemize}
 \item No source code
 \item specific hardware requirement
 \item specific software requirement
-\item complex workflow not clear to others
+\item complex workflow, not clear to others
 \end{itemize}
-source code of one Nature article gave different results on different Operating Systems.
 
-{\tiny J.~Bhandari~Neupane, R.~P. Neupane, Y.~Luo, W.~Y. Yoshida, R.~Sun, and P.~G.
+\vskip 1cm
+{\tiny [1] J.~Bhandari~Neupane, R.~P. Neupane, Y.~Luo, W.~Y. Yoshida, R.~Sun, and P.~G.
   Williams, ``Characterization of leptazolines a--d, polar oxazolines from the
   cyanobacterium leptolyngbya sp., reveals a glitch with the
   “willoughby--hoye” scripts for calculating nmr chemical shifts,''
@@ -74,21 +77,23 @@ source code of one Nature article gave different results on different Operating 
 \end{frame}
 
 \begin{frame}
-\frametitle{Existing Method}
-specific software tools
+\frametitle{Existing Method -- Specific Software Tools}
+
 \begin{figure}
-\includegraphics[width=5cm]{pic/fitlog_table.png}
+\includegraphics[width=0.8\textwidth]{pic/fitlog_table.png}
+\caption{figlog package by FaskNLP Lab of FuDan University}
 \end{figure}
-Pros: running environment information capture and experiment results storage
+Pros: running environment capture and experiment results storage
 
 Cons: bad maintainability and difficult configuration
 \end{frame}
 
 \begin{frame}
-	\frametitle{Existing Method}
-Out-of-box Platforms
+\frametitle{Existing Method -- Out-of-box Platforms}
+
 \begin{figure}
-\includegraphics[width=5cm]{pic/code_ocean.jpeg}
+\includegraphics[width=0.8\textwidth]{pic/code_ocean.jpeg}
+\caption{IEEE promoted codeocean platform}
 \end{figure}
 Pros: Uniform platform and easy to use
 
@@ -96,10 +101,12 @@ Cons: pay for your usage
 \end{frame}
 
 \begin{frame}
-\frametitle{Existing Method}
-Best practice
+\frametitle{Existing Method -- Make Documentation}
 
-Make documentation of experiment procedures, etc.
+\begin{itemize}
+\item environment, software, external dataset etc.
+\item documentation of each steps
+\end{itemize}
 
 Pros: no external barrier
 
