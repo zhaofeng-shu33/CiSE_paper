@@ -50,10 +50,16 @@ numberstyle=\tiny\color{mygray}
 		\includegraphics[width=\textwidth]{pic/general_workflow.png}
 		\caption{Cloud DevOps provider}
 	\end{subfigure}
-\end{figure}  
+\end{figure}
 DevOps is a kind of workflow management method in software engineering.
 \end{frame}
-
+\begin{frame}
+\frametitle{Experiment Reproduciblity Problem}
+\begin{figure}
+\includegraphics[width=0.8\textwidth]{pic/reproducibility_in_Science.jpg}
+\end{figure}
+Scientific computing domain is more portable than other fields.
+\end{frame}
 \begin{frame}
 \frametitle{Challenges in Experiment Reproducibility}
 
@@ -101,20 +107,33 @@ Cons: pay for your usage
 \end{frame}
 
 \begin{frame}
-\frametitle{Existing Method -- Make Documentation}
+\frametitle{Existing Method -- Best Practice}
 
+Making documentations:
 \begin{itemize}
 \item environment, software, external dataset etc.
 \item documentation of each steps
 \end{itemize}
-
+and many other general suggestions [2].
+\vskip 0.5cm
 Pros: no external barrier
 
 Cons: varies between researchers
+\vskip 1cm
+{\tiny
+[2] V.~Stodden and S.~Miguez, ``Best practices for computational science: Software
+  infrastructure and environments for reproducible and extensible research,''
+  \emph{Journal of open research software}, vol.~2, no.~1, Jul. 2014.
+  }
 \end{frame}
 
 \begin{frame}
 \frametitle{Our Method -- Experiments with Cloud DevOps}
+\begin{block}{}
+\begin{centering}
+Run experiments with the help of Cloud DevOps can guarantee the reproducibility to a large extent.
+\end{centering}
+\end{block}
 Advantages:
 \begin{itemize}
 	\item High availability of the service and well maintenance of the infrastructure
@@ -122,16 +141,16 @@ Advantages:
 	\item Unlimited usage and rich computing resource
 \end{itemize}
 \end{frame}
-\frame{\tableofcontents[currentsection]}
 \section{Infrastructure}
+\frame{\tableofcontents[currentsection]}
 \begin{frame}
 \frametitle{What is DevOps}
 
-Process of DevOps
+Steps of DevOps
 \begin{figure}
-\includegraphics[width=5cm]{pic/what-is-devops.jpg}
+\includegraphics[width=0.8\textwidth]{pic/what-is-devops.jpg}
 \end{figure}
-Core Components: Build and Deployment (CICD)
+Core Components: Build and Deploy (CICD)
 \end{frame}
 
 \begin{frame}
@@ -198,8 +217,8 @@ script: # run experiment
 \end{lstlisting}
 
 \end{frame}
-\frame{\tableofcontents[currentsection]}
 \section{Case Studies}
+\frame{\tableofcontents[currentsection]}
 \begin{frame}
 \frametitle{Using public agent}
 \begin{itemize}
@@ -234,12 +253,14 @@ Our program finishes in 4.3 minutes and consumes 3.1GB memory.
 \includegraphics[width=0.8\textwidth]{pic/serverless_show.png}
 \end{figure}
 \end{frame}
-\section{Conclusion}
+\section{Conclusion and Future Prospect}
 \begin{frame}
 \frametitle{Conclusion}
 \begin{itemize}
 \item Researchers should make their experiments reproducible
-\item Cloud DevOps is a good chice for such purpose
+\item Cloud DevOps is a good choice for such purpose
+\item Cloud DevOps is going to support more architectures like ARM variants.
+Such trend is beneficial to the reproducibility of hardware-related experiments
 \end{itemize}
 \end{frame}
 
