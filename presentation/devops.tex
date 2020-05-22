@@ -31,7 +31,7 @@ numberstyle=\tiny\color{mygray}
 
 \section{Introduction}
 \begin{frame}
-\frametitle{Background}
+\frametitle{Background of Cloud DevOps}
 	\begin{columns}
 		\column{5cm}
 		\begin{figure}
@@ -43,34 +43,34 @@ numberstyle=\tiny\color{mygray}
 \begin{figure}
 	\centering
 	\begin{subfigure}{0.4\textwidth}
-		\includegraphics[width=\textwidth]{pic/github_actions.png}
-		\caption{DevOps workflow}
+		\includegraphics[width=\textwidth]{pic/general_workflow.png}
+		\caption{DevOps: workflow management method}
 	\end{subfigure}~~~~~
 	\begin{subfigure}{0.4\textwidth}
-		\includegraphics[width=\textwidth]{pic/general_workflow.png}
-		\caption{Cloud DevOps provider}
+		\includegraphics[width=\textwidth]{pic/github_actions.png}
+		\caption{Cloud DevOps: DevOps on the Cloud}
 	\end{subfigure}
 \end{figure}
-DevOps is a kind of workflow management method in software engineering.
 \end{frame}
 \begin{frame}
-\frametitle{Experiment Reproduciblity Problem}
+\frametitle{Background of Experiment Reproduciblity Problem}
 \begin{figure}
 \includegraphics[width=0.8\textwidth]{pic/reproducibility_in_Science.jpg}
 \end{figure}
-Scientific computing domain is more portable than other fields.
+Scientific computing domain is more portable than other fields. However...
 \end{frame}
 \begin{frame}
 \frametitle{Challenges in Experiment Reproducibility}
-
-A given Python script from a Nature article gave different results on different Operating Systems [1]
-
 \begin{itemize}
 \item No source code
 \item specific hardware requirement
 \item specific software requirement
 \item complex workflow, not clear to others
 \end{itemize}
+\vskip 0.5cm
+
+A given Python script from a Nature article gave different results on different Operating Systems [1]
+
 
 \vskip 1cm
 {\tiny [1] J.~Bhandari~Neupane, R.~P. Neupane, Y.~Luo, W.~Y. Yoshida, R.~Sun, and P.~G.
@@ -107,7 +107,7 @@ Cons: pay for your usage
 \end{frame}
 
 \begin{frame}
-\frametitle{Existing Method -- Best Practice}
+\frametitle{Existing Method -- Best Practice Advice}
 
 Making documentations:
 \begin{itemize}
