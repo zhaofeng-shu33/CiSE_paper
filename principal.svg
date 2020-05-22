@@ -14,10 +14,24 @@
    viewBox="0 0 90.507942 57.282078"
    version="1.1"
    id="svg3594"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="principal.svg">
   <defs
      id="defs3588">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker4710"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(0.6) rotate(180) translate(0,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         id="path4708" />
+    </marker>
     <marker
        inkscape:stockid="Arrow2Mend"
        orient="auto"
@@ -25,7 +39,8 @@
        refX="0.0"
        id="Arrow2Mend"
        style="overflow:visible;"
-       inkscape:isstock="true">
+       inkscape:isstock="true"
+       inkscape:collect="always">
       <path
          id="path897"
          style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1"
@@ -106,6 +121,21 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend-2-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path914-4-6"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)" />
+    </marker>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -114,16 +144,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="3.5553864"
-     inkscape:cy="123.47925"
+     inkscape:zoom="1.979899"
+     inkscape:cx="114.44914"
+     inkscape:cy="114.79124"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1272"
-     inkscape:window-y="-8"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:measure-start="0,0"
      inkscape:measure-end="0,0"
@@ -139,7 +169,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -175,15 +205,15 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:8.46209621px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2115524"
-       x="18.287483"
-       y="30.424704"
+       x="15.029083"
+       y="30.288128"
        id="text4258-4"
        transform="scale(1.0220123,0.9784618)"><tspan
          sodipodi:role="line"
          id="tspan4256-2"
-         x="18.287483"
-         y="30.424704"
-         style="font-size:5.64444447px;stroke-width:0.2115524">DevOps</tspan></text>
+         x="15.029083"
+         y="30.288128"
+         style="font-size:5.64444447px;stroke-width:0.2115524">Controller</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend)"
        d="M 66.277471,23.048734 H 49.444862"
@@ -193,14 +223,14 @@
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="47.573975"
-       y="18.237877"
+       x="53.053001"
+       y="18.371511"
        id="text4350"><tspan
          sodipodi:role="line"
          id="tspan4348"
-         x="47.573975"
-         y="18.237877"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';stroke-width:0.26458332">fetch code</tspan></text>
+         x="53.053001"
+         y="18.371511"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';stroke-width:0.26458332">1) notify</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="m 44.608701,34.001411 9.320647,17.394008"
@@ -210,14 +240,14 @@
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="57.513145"
-       y="45.710423"
+       x="49.094154"
+       y="39.964127"
        id="text4350-5"><tspan
          sodipodi:role="line"
          id="tspan4348-3"
-         x="57.513145"
-         y="45.710423"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';stroke-width:0.26458332">trigger build</tspan></text>
+         x="49.094154"
+         y="39.964127"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';stroke-width:0.26458332">2) trigger</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:0.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -228,12 +258,12 @@
          id="tspan4348-8"
          x="20.897223"
          y="48.383118"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:0.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';stroke-width:0.26458332">upload log</tspan><tspan
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:0.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';stroke-width:0.26458332">5) upload log</tspan><tspan
          sodipodi:role="line"
          x="20.897223"
          y="51.904461"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:0.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';stroke-width:0.26458332"
-         id="tspan1410">&amp;artifact</tspan></text>
+         id="tspan1410">    &amp;artifact</tspan></text>
     <path
        style="fill:none;stroke:#000000;stroke-width:0.79959553;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend)"
        d="M 48.872084,54.835164 39.396432,36.267997"
@@ -248,13 +278,55 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.58333302px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
-       x="61.471992"
-       y="66.079124"
-       id="text4924"><tspan
+       x="15.825084"
+       y="78.941582"
+       id="text4924"
+       transform="rotate(-24.956492)"><tspan
          sodipodi:role="line"
          id="tspan4922"
-         x="61.471992"
-         y="66.079124"
-         style="font-size:5.64444444px;stroke-width:0.26458332">Agent</tspan></text>
+         x="15.825084"
+         y="78.941582"
+         style="font-size:5.64444447px;stroke-width:0.26458332">Agent</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2-3)"
+       d="M 82.105925,35.138282 67.639585,52.79956"
+       id="path4288-0-7"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="77.417542"
+       y="47.479881"
+       id="text4350-53"><tspan
+         sodipodi:role="line"
+         id="tspan4348-5"
+         x="77.417542"
+         y="47.479881"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';stroke-width:0.26458332">3) fetch code</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:0.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="70.684532"
+       y="62.257473"
+       id="text4350-0-6"><tspan
+         sodipodi:role="line"
+         x="70.684532"
+         y="62.257473"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;line-height:0.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, Italic';stroke-width:0.26458332"
+         id="tspan1410-9">4) pipelines</tspan></text>
+    <path
+       id="path3859"
+       style="fill:none;stroke:#000000;stroke-width:0.51300001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker4710)"
+       sodipodi:type="arc"
+       sodipodi:cx="80.288795"
+       sodipodi:cy="41.445072"
+       sodipodi:rx="4.1966605"
+       sodipodi:ry="4.0641308"
+       sodipodi:start="4.3650685"
+       sodipodi:end="2.7698375"
+       d="m 78.860338,37.623618 a 4.1966605,4.0641308 0 0 1 5.362762,2.407028 4.1966605,4.0641308 0 0 1 -2.441759,5.21284 4.1966605,4.0641308 0 0 1 -5.402537,-2.322113"
+       sodipodi:open="true"
+       transform="rotate(16.768749)" />
   </g>
 </svg>

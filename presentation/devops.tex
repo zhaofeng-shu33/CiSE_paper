@@ -201,7 +201,7 @@ python: 3.6
 \centering
 \begin{subfigure}{0.4\textwidth}
 \includegraphics[width=\textwidth]{../principal.pdf}
-\caption{Interaction of different components}
+\caption{How Cloud DevOps works}
 \end{subfigure}~
 \begin{subfigure}{0.4\textwidth}
 \includegraphics[width=\textwidth]{../workflow.pdf}
@@ -219,8 +219,9 @@ script: # run experiment
 \end{frame}
 \section{Case Studies}
 \frame{\tableofcontents[currentsection]}
+\subsection{1) Using public agent}
 \begin{frame}
-\frametitle{Using public agent}
+\frametitle{1) Using public agent}
 \begin{itemize}
 \item implementating a triangle counting algorithm in C++
 \item deploy the package to Ubuntu PPA
@@ -230,8 +231,9 @@ Server VM has 2 CPU cores and 7.5 GB memory space.
 
 Our program finishes in 4.3 minutes and consumes 3.1GB memory.
 \end{frame}
+\subsection{2) Using self-hosted agent}
 \begin{frame}
-\frametitle{Using self-hosted agent}
+\frametitle{2) Using self-hosted agent}
 \begin{itemize}
 \item Using OpenMP to parallel the triangle counting algorithms
 \item the experiment is run using a computing node with 32 CPUs.
@@ -242,9 +244,9 @@ Our program finishes in 4.3 minutes and consumes 3.1GB memory.
 \caption{self-hosted computing cluster connected to DevOps server}
 \end{figure}
 \end{frame}
-
+\subsection{3) Integrated with other cloud infrastructure}
 \begin{frame}
-\frametitle{Integrated with other cloud infrastructure}
+\frametitle{3) Integrated with other cloud infrastructure}
 \begin{itemize}
 \item plug into a serverless computing experiment
 \item replace the private client with public agent
@@ -259,9 +261,11 @@ Our program finishes in 4.3 minutes and consumes 3.1GB memory.
 \begin{itemize}
 \item Researchers should make their experiments reproducible
 \item Cloud DevOps is a good choice for such purpose
-\item Cloud DevOps is going to support more architectures like ARM variants.
-Such trend is beneficial to the reproducibility of hardware-related experiments
 \end{itemize}
+\begin{block}{Future Prospect: Hardware Experiment Reproducible}
+Cloud DevOps is going to support more architectures like ARM variants.
+Such trend is beneficial to the reproducibility of hardware-related experiments
+\end{block}
 \end{frame}
 
 \begin{frame}
