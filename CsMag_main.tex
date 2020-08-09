@@ -13,8 +13,6 @@ numbers=left,
 numbersep=5pt,
 numberstyle=\tiny\color{mygray}
 }
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
 
 
 \begin{document}
@@ -175,7 +173,7 @@ In the above workflow description, \texttt{Build}, \texttt{Test} and \texttt{Dep
 
 %Also, DevOps can be customized by self hosting the server in the laboratory or using local runner on workstation or HPC cluster.
 Since the configuration of Cloud DevOps is transparent to all users and the mechanism of it is totally determined by configuration file and specific version of source code. Other researchers can trust the output logs and artifacts of DevOps as evidence of experiment reproducibility. Rerunning the code is very easier: just use the same service provider and the code can be run under a different account after replicating the code repository. We acknowledge that this convenience is not applicable to self-hosted agent. For self-hosted agent usually the environment configuration part is not written in a file but determined by which type of agent attached. This made reproducibility less easy. Still, the logs and artifacts are available to be examined by public since they are uploaded to public Cloud DevOps server from local agent. To make the story of experiment reproducibility complete,
-we encourage the researchers to run a partial and small scale experiment on public DevOps server and run their full experiment on self-hosted server using the same code. 
+we encourage the researchers to run a partial and small scale experiment on public agent and run their full experiment on self-hosted agent using the same code.
 
 \section{CASE STUDIES}
 In the previous section, we briefly overview the common practice in DevOps and how it can be related with scientific experiment reproducibility. Different domains may still face different problems in practice. In this section, we use experiments from the domain of Graph Computing, Bioinformatics and Scientific Software development to show how Cloud DevOps can be used to solve the reproducibility problems. All experiments follow our proposals and can be checked from \url{https://github.com/Leidenschaft/experiment_reproducibility_collection}. We believe Cloud DevOps can be used in experiments of other domains as well. 
@@ -186,12 +184,12 @@ algorithm library build phase and experiment running phase. The output of the fi
 the reusable library can be deployed to public available package repository.
  
 Following this two-phase philosophy, we consider a simple triangle counting algorithm and apply it to considerable large graph. %The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
-In the first phase, we compile the code and deploy the package to Ubuntu PPA. We also demonstrate the code can be compiled and run successfully on Windows by using AppVeyor. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5GB memory. The log of this experiment can be checked publicly on Travis, which shows
-our program consumes 3.1GB memory in peak and finishes in 4.3 minutes. 
+In the first phase, we compile the code and deploy the package to Ubuntu PPA. We also demonstrate the code can be compiled and run successfully on Windows by using AppVeyor. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5 GB memory. The log of this experiment can be checked publicly on Travis, which shows
+our program consumes 3.1 GB memory in peak and finishes in 4.3 minutes. 
 
 \subsection{Using self-hosted agent}
 %Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
-Cloud DevOps public agent provides useful agent for general purpose task but is not suitable to run long-time experiment due to time limitation for a single run. For this kind of experiment, self-hosted agent should be used. Self-hosted agent includes laptops, workstations, lab bare-metal server, paid cloud virtual machines etc.
+Cloud DevOps public agent provides convenient environment for general purpose task but is not suitable to run long-time experiment due to time limitation for a single run. For this kind of experiment, self-hosted agent should be used. Self-hosted agent means any computing devices provided by the user, which can be laptops, workstations, lab bare-metal server, paid cloud virtual machines etc.
 For our triangle counting experiment, we use lab bare-metal server to run larger experiment. Since we use OpenMP to do some parallelism on algorithm level, the multi-core CPUs on the server help a lot in accelerating the experiment. For our triangle counting experiment, we choose a larger dataset which requires 18GB peak memory to consumes it. We use GitLab as the DevOps service provider. Our self-hosted agent is a head node in an HPC cluster, and we use it to submit the job to computing nodes.
 The relationship is illustrated by {\bf Figure} \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since dependency of experiment can be compiled and prepared beforehand, generally only blue box workflow in Figure \ref{fig:cicdworkflow}
 is executed in self-hosted agent. Going through the whole pipeline of DevOps costs extra time but makes the experiment more reliable.
@@ -201,7 +199,7 @@ is executed in self-hosted agent. Going through the whole pipeline of DevOps cos
 \caption{Using self-hosted HPC to connect DevOps server. The blue ellipse part is self-hosted resources.}\label{fig:selfhosted}
 \end{figure}
 
-Each computing node of ours has 56 CPUs, 256GB memory, and we need around 5 hours to run this experiment. The log of each running for self-hosted agent is available publicly on GitLab.
+Each computing node of ours has 56 CPU cores, 256 GB memory, and we need around 5 hours to run this experiment. The log of each running for self-hosted agent is available publicly on GitLab.
 
 \subsection{Incorporating other cloud infrastructure}
 Cloud DevOps is not exclusive and can incorporate other infrastructure as well.
@@ -219,8 +217,8 @@ self-hosted armhf architecture. We have used a Raspberry Pi  3B Model with Raspb
 with GitHub Actions. The task is to compile a newer version of slurm, which is a cluster management
 toolkit. It takes about 2 hours to finish one run, which is slower than the same task on X86 architecture. The console output of each build on our Rasberry Pi is captured and uploaded to GitHub, which is similar to the centrally managed build system of Debian. Though hardware environment may not be exactly same, other researchers can still benefit from viewing the logs to reproduce or customize their own experiment.
 
-\section{CONCLUSION}
-DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. Researchers can run experiment demo,  medium-sized or partial version of experiments directly on public DevOps service and complete their computing intensive or hardware-related experiments using self-hosted agent. Currently, it is unknown that beyond scientific software development, how much the accessibility of DevOps by scientific community is. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
+\section{CONCLUSION AND FUTURE WORK}
+DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. Researchers can run experiment demo,  medium-sized or partial version of experiments directly on public DevOps service and complete their computing intensive or hardware-related experiments using self-hosted agent. Besides running experiment code, the full research cycle is complex and may require retrieve different data from distributed repositories, pre-processing and post-processing. Such process has iterative nature, which is similar to DevOps philosophy. Therefore, it is meaningful to investigate how to incorporate research cycle with DevOps cycle to improve the research quality. Currently, it is unknown that beyond scientific software development, how much the accessibility of DevOps by scientific community is. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
 
 \section{ACKNOWLEDGMENT}
 
