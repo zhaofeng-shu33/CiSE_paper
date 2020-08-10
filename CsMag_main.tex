@@ -41,19 +41,20 @@ cloud infrastructure; DevOps; scientific workflow management
 \end{IEEEkeywords}
 
 \section{Introduction}
-With the development of cloud computing, computational scientific experiments encompass more disciplines and are much more complex than before. Cloud computing offers many convenient architectures which has been proven useful in scientific experiment scenario.  For example, some highly paralleled experiments can be done on Cloud Serveless with affordable cost \cite{niu2019leveraging}. There are other emerging domains like Big Data which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources, which put challenges on experiment reproducibility.
+With the development of cloud computing, computational scientific experiments encompass more disciplines and are much more complex than before. Cloud computing offers many convenient architectures which has been proven useful in scientific experiment scenario.  For example, some highly paralleled experiments can be done on Cloud Serveless with affordable cost \cite{niu2019leveraging}. There are other emerging domains like Big Data which are related to computational scientific experiment. These experiments require more dedicated toolchains, specific workflow and expensive computational resources, which put new challenges on experiment reproducibility.
 
 Besides these traditional challenges, many experiments, especially in hardware related domain, are conducted on
-embedded devices. Reproducing these experiments are more difficult than simulation-only ones since other researchers may not share exactly the same model \cite{report2017}. The experiment running time vary so greatly that it is hard to find a
+embedded devices. Reproducing these experiments are more difficult than simulation-only ones since other researchers may not share exactly the same model \cite{report2017}. The scale, running time and platform of experiments vary so greatly that it is hard to find a
 one-fit-all solution for the experiment reproducibility problem.
 
-To solve the reproducibility issue, there are three kinds of approaches: Tools, Platform and Methodology. Many tools \cite{greff2017sacred} are provided, which can capture the running environment information or storing the experiment results. These tools are valuable but may suffer from bad maintainability and difficult configuration. The environment
+To solve the reproducibility issue, there are three kinds of approaches: tools-oriented, platform-oriented and methodology-oriented. For tools-oriented approach, there are many useful tools, which can capture the running environment information or storing the experiment results \cite{greff2017sacred}. The environment
 capturing functionality is designed since preserving provenance of experiments is essential for reproducibility \cite{freire2018provenance}.
-Indeed, they are made by domain specific scientists, not by experienced full-time software engineers. These tools can store the experiment results, which requires users to configure the database locally but researchers may not be experienced in database. Besides, the local data is difficult to share. Furthermore, most of these tools are not programming language and computing architecture neutral, which means researchers cannot use them in other environment. Still, something is better than nothing if researchers are able to use these tools to manage their experiment.
+These tools are valuable but may suffer from bad maintainability and difficult configuration.
+Indeed, they are made by domain-specific scientists, not by experienced full-time software engineers. These tools can store the experiment results, which requires users to configure the database locally but researchers may not be experienced in database. Besides, the local data is difficult to share. Furthermore, most of these tools are not programming language and computing architecture neutral, which means researchers cannot use them in other environment. Still, something is better than nothing if researchers are able to use these tools to manage their experiment.
 
 For platform solution, traditionally containerization is used. In recent years, it has been shown that cloud computing is suitable for scientific research purpose \cite{Howe12} and cloud-based hardware is emerging \cite{cloudhard}. Configuration on cloud environment from scratch is difficult for inexperienced researchers and it is better to use specific cloud service for research purpose. For example, we have Code Ocean or other commercial cloud systems \cite{perkel2018data}, which can tackle the reproducibility problem to some extent. However, their free tier is mean and researchers probably are not willing to pay for extra computational resource. Budget limitation is an important factor when it comes to buying cloud computing resources.
 
-Methodology, or best practice in reproducibility usually discusses the general principles \cite{stodden2014best} or combines tools and platforms to explore the best practice \cite{QashaCW16}. Generally speaking, methodology is hard to follow as they tend to be ideal and the researchers may not be familiar with or have the ability to setup the toolchain used.  
+Methodology in reproducibility usually discusses the general principles \cite{stodden2014best} or combines tools and platforms to explore the best practice \cite{QashaCW16}. Generally speaking, methodology is hard to follow as they tend to be ideal and the researchers may not be familiar with or have the ability to setup the toolchain used.  
 
 All the above three aspects have pros and cons for experiment reproducibility. The key is how to combine the three aspects to make the best use of their advantages. This is what DevOps tries to solve. This idea is not newly proposed. Boettiger gives a try using Docker container for experiment reproducibility \cite{Boettiger15}.
 He also mentioned the DevOps philosophy and acknowledged its limitations.
@@ -63,14 +64,18 @@ Except for local system, there are also dedicated system on the cloud, which tri
 Everest, claimed to simplify the use of clouds for scientific computing, is still available but users are required to attach their own resources before actually using it \cite{VOLKOV2017112}.
 Just like existing tools, these lab-made services suffer from bad maintenance.
 
-From the above analysis, we see that previous combination of DevOps with scientific experiment has some shortcomings. In this article, we propose Cloud DevOps approach, which uses DevOps from cloud service point of view. It has the following advantages which are not present completely in previous approaches:
+From the above analysis, we see that previous combination of DevOps with scientific experiment has some shortcomings. In this article, we propose Cloud DevOps approach, which uses DevOps from cloud service point of view. It has the following advantages which are not present simultaneously in previous approaches:
 \begin{itemize}
-	\item High availability of the service and well maintenance of the infrastructure
-	\item Easy to use and flexible to configure
-	\item Unlimited usage and rich computing resource
+	\item high availability of the service and well maintenance of the infrastructure,
+	\item easy to use and flexible to configure,
+	\item unlimited usage and rich computing resource
 \end{itemize}
- In the following sections, we will give an introduction to Cloud DevOps and show the feasibility to incorporate existing tools in Cloud DevOps. We then investigate the reproducibility problem with some proof-of-concept examples. These examples take the advantage of Cloud DevOps while integrated with old toolchains. We believe Cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research. All too often, helping others actually helps yourself.
 
+The contribution of this paper lies mainly at three aspects. Firstly, we argue that Cloud DevOps can be helpful to reproducibility for general scientific computing experiments. Secondly, we show how to achieve this by designing a
+DevOps workflow. Finally, we demonstrate how to apply our workflow to practical experiments.
+
+In the following sections, we will give an introduction to Cloud DevOps and show the feasibility to incorporate existing tools in Cloud DevOps. We then investigate the reproducibility problem with some proof-of-concept examples. These examples take the advantage of Cloud DevOps while integrating old toolchains. We believe Cloud DevOps can help researchers be more productive in their experiment and help others easier to follow their research.
+ 
 \section{INFRASTRUCTURE}
 Originally, DevOps refers to the software engineering approach to automate the process of building and deploying software product, which is summarized by its two core components ``Continuous Integration and Deployment (CICD)'' \cite{leite2019survey}.
 DevOps service (server) can be self-hosted or centrally hosted. In either way, it requires some other computing machines (called agents or runners) to actually run the jobs submitted. Usually the jobs are not submitted by hand but triggered by an update of code repository. 
