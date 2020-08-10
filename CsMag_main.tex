@@ -189,14 +189,14 @@ Generally, if researchers develop a new algorithm for a specific domain, the wor
 algorithm library build phase and experiment running phase. The output of the first phase is the reusable library which is one of input to the second phase. Using DevOps in the first phase is nearly identical to how DevOps is used in software community.  The code can be tested against different environment and 
 the reusable library can be deployed to public available package repository.
  
-Following this two-phase philosophy, we consider a simple triangle counting algorithm and apply it to considerable large graph. %The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
+Following this two-phase philosophy, we consider a simple triangle-counting algorithm and apply it to considerably large graph. %The code is available at \url{https://github.com/zhaofeng-shu33/triangle_counting}.
 In the first phase, we compile the code and deploy the package to Ubuntu PPA. We also demonstrate the code can be compiled and run successfully on Windows by using AppVeyor. In the second phase we just install the deployed package and run the actual experiment on the agent provided by Travis, which has 2 CPU cores and 7.5 GB memory. The log of this experiment can be checked publicly on Travis, which shows
 our program consumes 3.1 GB memory in peak and finishes in 4.3 minutes. 
 
 \subsection{Using self-hosted agent}
 %Experiment Reproducibility on high performance cluster has extra difficulty because of its parallelism. Singularity is a virtualization solution targeted at such case. % citation needed
 Cloud DevOps public agent provides convenient environment for general purpose task but is not suitable to run long-time experiment due to time limitation for a single run. For this kind of experiment, self-hosted agent should be used. Self-hosted agent means any computing devices provided by the user, which can be laptops, workstations, lab bare-metal server, paid cloud virtual machines etc.
-For our triangle counting experiment, we use lab bare-metal server to run larger experiment. Since we use OpenMP to do some parallelism on algorithm level, the multi-core CPUs on the server help a lot in accelerating the experiment. For our triangle counting experiment, we choose a larger dataset which requires 18GB peak memory to consumes it. We use GitLab as the DevOps service provider. Our self-hosted agent is a head node in an HPC cluster, and we use it to submit the job to computing nodes.
+For our triangle-counting experiment, we use our lab bare-metal server to run the larger experiment. Since we use OpenMP to do some parallelism on algorithm level, the multi-core CPUs on the server help a lot in accelerating the experiment. We also choose a larger dataset which requires 18 GB peak memory to consumes it. We use GitLab as the DevOps service provider. Our self-hosted agent is a head node in an HPC cluster, and we use it to submit the job to computing nodes.
 The relationship is illustrated by Fig. \ref{fig:selfhosted}. Using agent to submit job has extra advantages that the running logs are preserved in a continuous way without messing things up. Since dependency of experiment can be compiled and prepared beforehand, generally only dashed box workflow in Fig. \ref{fig:cicdworkflow}
 is executed in self-hosted agent. Going through the whole pipeline of DevOps costs extra time but makes the experiment more reliable.
 
@@ -209,22 +209,23 @@ Each computing node of ours has 56 CPU cores, 256 GB memory, and we need around 
 
 \subsection{Incorporating other cloud infrastructure}
 Cloud DevOps is not exclusive and can incorporate other infrastructure as well.
-
-The experiment we use is a sequence alignment algorithm applied to protein sequences. 
-Originally the experiment is run on AWS Lambda, which is a Serverless infrastructure provided by Amazon \cite{niu2019leveraging}. Serverless infrastructure allows many concurrent experiments to run in isolated environment and
+To demonstrate this, we use
+an experiment which applied sequence alignment algorithm to protein sequences.
+Originally the experiment is run on AWS Lambda, which is a Serverless infrastructure provided by Amazon \cite{niu2019leveraging}.
+Serverless infrastructure allows many concurrent experiments to run in isolated environment and
 we need a client to coordinate them. The client program we used is run on public agent provided by Microsoft Azure. We first compile the experiment source code and deploy it to AWS Lambda platform using Travis. Then the client program is run to invoke Lambda functions and collect the experiment results.
 The overall experiment finishes in 2 minutes and produces public viewable logs on Azure pipelines. 
 
 From this example we also notice that Cloud DevOps is not bound to a specific provider. We can use DevOps provided by Microsoft to trigger the experiments deployed on Amazon.
 
 \subsection{Running experiment on other architecture}
-In this subsection, we demonstrate Cloud DevOps is able to track the experiment running time for
+In this subsection, we demonstrate Cloud DevOps is able to track the experiment for
 self-hosted armhf architecture. We have used a Raspberry Pi  3B Model with Raspbian OS connected
 with GitHub Actions. The task is to compile a newer version of slurm, which is a cluster management
-toolkit. It takes about 2 hours to finish one run, which is slower than the same task on X86 architecture. The console output of each build on our Rasberry Pi is captured and uploaded to GitHub, which is similar to the centrally managed build system of Debian. Though hardware environment may not be exactly same, other researchers can still benefit from viewing the logs to reproduce or customize their own experiment.
+toolkit. It takes about 2 hours to finish one run, which is slower than the same task on X86 architecture. The console output of each build on our Rasberry Pi is captured and uploaded to GitHub. Though hardware environment may not be exactly same, other researchers can still benefit from viewing the logs to reproduce or customize their own experiment on other architectures.
 
 \section{CONCLUSION AND FUTURE WORK}
-DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists if they could incorporate DevOps into their daily research. Researchers can run experiment demo,  medium-sized or partial version of experiments directly on public DevOps service and complete their computing intensive or hardware-related experiments using self-hosted agent. Besides running experiment code, the full research cycle is complex and may require retrieve different data from distributed repositories, pre-processing and post-processing. Such process has iterative nature, which is similar to DevOps philosophy. Therefore, it is meaningful to investigate how to incorporate research cycle with DevOps cycle to improve the research quality. Currently, it is unknown that beyond scientific software development, how much the accessibility of DevOps by scientific community is. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
+DevOps infrastructure is actively maintained by software engineering community and evolves towards better usability. It will be beneficial for scientists to incorporate DevOps into their daily research. Researchers can run experiment demo, medium-sized or partial experiments directly on public DevOps service and complete their computing intensive or hardware-related experiments using self-hosted agent. Besides running experiment code, the full research cycle is complex and may require retrieve different data from distributed repositories, pre-processing and post-processing steps. Such process has iterative nature, which is similar to DevOps philosophy. Therefore, it is meaningful to investigate how to incorporate research cycle with DevOps cycle to improve the research quality. Currently, it is unknown that beyond scientific software development, how much the accessibility of DevOps by scientific community is. Since DevOps is easily configurable and compatible with existing tools, we believe it will sweep more disciplines in the future.
 
 \section{ACKNOWLEDGMENT}
 
