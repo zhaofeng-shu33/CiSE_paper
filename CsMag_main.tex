@@ -143,17 +143,18 @@ python: 3.6
 In this configuration, we use the Linux virtual machine provided by cloud service. We also fix the version of certain software. 
 Such shortcut makes installing dependency in later workflow management much easier as we do not need to install \texttt{Python} or other software programs manually.
 
-Besides virtual machine, many DevOps infrastructures support Docker containers as well, which provides more flexible way to configure the environment. Generally speaking, virtualization is better than bare metal OS for experiment reproducibility \cite{Howe12}. Hence, Cloud DevOps can do a good job by providing out-of-the-box virtual machine.
+Besides virtual machine, many DevOps infrastructures support Docker containers as well, which provides more flexible way to configure the environment. Generally speaking, virtualization is better than host OS for experiment reproducibility \cite{Howe12}. Hence, Cloud DevOps can do a good job by providing out-of-the-box virtual machine.
 
-Usually Cloud DevOps is used in cooperation with a source code repository. The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction between the computing agent, the Cloud DevOps server and the code repository. When the source code is updated, Cloud DevOps server fetches the latest code automatically and trigger the computing agent to run the build. The agent uploads the log file and artifacts to the server after it finishes tasks. The artifacts can be figures of experiment result which will be included in the paper. 
-The code repository is used for version control and each running of the agent produces a log file. The source code version and the log file are 1-to-1 correspondent. Inspecting the public available log and its corresponding source code help others to reproduce the same result using public available build machine or on local workstations.
+Usually Cloud DevOps is used in cooperation with a source code repository. The system diagram in \textbf{Figure} \ref{fig:principal} shows the interaction among the computing agent, the Cloud DevOps server and the code repository. When the source code is updated, Cloud DevOps server triggers the computing agent to run the build. The agent fetches the latest code automatically and uploads the log file and artifacts to the server after it finishes tasks. The artifacts can be figures of experiment result which will be included in the paper.
+The code repository is used for version control and each running of the agent produces a log file. The source code version and the log file are 1-to-1 correspondent. Inspecting the public available log and its corresponding source code helps others to reproduce the same result using public available build machine or
+self-hosted agent.
 
 \begin{figure}[!ht]
 \includegraphics[width=18.5pc]{principal.pdf}
 \caption{Interaction of DevOps server with agent and code repository}\label{fig:principal}
 \end{figure}
 
-Though we can use the cloud computing resources for unlimited time, the algorithm level parallel ability is restricted and special computing device (like GPU) or programming model (MPI) is missing. The ability to use self-hosted environment is important to run complex scientific experiment. Fortunately, many Cloud DevOps service provides the local agent option to make it possible. By installing a client software, it is possible to empower the advantages of Cloud DevOps without losing the computing ability of self-hosted servers. 
+Though we can use the cloud computing resources for unlimited time, the parallel ability on algorithm level is restricted and special computing device (like GPU) or programming model (MPI) is missing. Thus, it is necessary to use self-hosted environment to run complex scientific experiment. Fortunately, many Cloud DevOps service provides the local agent option. By installing a client software on one's own machine, it is possible to empower the advantages of Cloud DevOps without losing the computing ability of self-hosted devices.
 \subsection{Describe Workflow for Agent}
 In this step, users should determine how to execute their code sequentially. The basic workflow can be summarized in \textbf{Figure} \ref{fig:cicdworkflow}.
 

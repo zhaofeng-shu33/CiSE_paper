@@ -14,7 +14,7 @@
    viewBox="0 0 90.507942 57.282078"
    version="1.1"
    id="svg3594"
-   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="self-hosted.svg">
   <defs
      id="defs3588">
@@ -128,16 +128,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="-6.0189191"
-     inkscape:cy="40.566857"
+     inkscape:zoom="2.8"
+     inkscape:cx="132.10242"
+     inkscape:cy="130.25879"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1272"
-     inkscape:window-y="-8"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
      inkscape:window-maximized="1"
      inkscape:measure-start="0,0"
      inkscape:measure-end="0,0"
@@ -163,7 +163,7 @@
      id="layer1"
      transform="translate(-12.39408,-11.074173)">
     <ellipse
-       style="fill:none;fill-opacity:1;stroke:#0055ff;stroke-width:0.5006597;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.50065972, 3.00395833000000012;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.5006597;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:0.50065972, 3.00395833000000012;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
        id="path3185"
        cx="86.339317"
        cy="-9.8771763"
@@ -178,7 +178,7 @@
        sodipodi:nodetypes="aaaaaaaaaaaaaa" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:4.23333333px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2115524;"
+       style="font-style:normal;font-weight:normal;font-size:4.23333311px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2115524"
        x="17.772373"
        y="63.147388"
        id="text4258"
@@ -187,7 +187,7 @@
          id="tspan4256"
          x="17.772373"
          y="63.147388"
-         style="font-size:4.23333333px;stroke-width:0.2115524;">Computing Grid</tspan></text>
+         style="font-size:4.23333311px;stroke-width:0.2115524">Computing Grid</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.2115524"
@@ -218,7 +218,7 @@
          y="40.387268"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';stroke-width:0.26458332">submit job</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
+       style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Mend-2)"
        d="M 91.604058,30.540148 83.341744,46.859706"
        id="path4288-0"
        inkscape:connector-curvature="0"
@@ -246,7 +246,7 @@
          y="19.150206"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.23333311px;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,  Italic';stroke-width:0.26458332">upload log &amp; artifact</tspan></text>
     <path
-       style="fill:none;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:;marker-start:url(#marker2195)"
+       style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker2195)"
        d="m 53.437976,22.215656 21.786793,-0.06658"
        id="path4288-0-4"
        inkscape:connector-curvature="0"
